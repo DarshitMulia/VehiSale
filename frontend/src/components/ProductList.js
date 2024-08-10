@@ -270,8 +270,7 @@ const ProductList = () => {
                                     </div>
                                     <div className="product-details-first-line">
                                         <h4>{item.name}</h4>
-                                        <p>{item.company}</p>
-                                        <p>{item.year}</p>
+                                        <p style={{fontWeight:"bold"}}>₹ {item.price}</p>
                                     </div>
                                     <div className="container">
                                         <Link to={`/productdetails/${item._id}`} className="view-details-link">
