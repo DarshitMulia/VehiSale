@@ -1,149 +1,121 @@
-const express = require('express')
-const cors = require('cors')
-const multer = require('multer')
-const Razorpay = require('razorpay')
-const bodyParser = require('body-parser')
-const User = require('./db/User')
-const Product = require('./db/Product')
-const PendingProduct = require('./db/PendingProduct')
-const RejectedProduct = require('./db/RejectedProduct')
-const Testimonial = require('./db/Testimonial')
-const app = express()
-require('./db/config')
+const express = require('express');
+const cors = require('cors');
+const multer = require('multer');
+const Razorpay = require('razorpay');
+const bodyParser = require('body-parser');
+const User = require('./db/User');
+const Product = require('./db/Product');
+const PendingProduct = require('./db/PendingProduct');
+const RejectedProduct = require('./db/RejectedProduct');
+const Testimonial = require('./db/Testimonial');
+const app = express();
+require('./db/config');
 
-app.use(express.json())
-app.use(cors())
-app.use(bodyParser.json())
+app.use(express.json());
+app.use(cors());
+app.use(bodyParser.json());
 
-// --------------------------------------Token Verification--------------------------------------
+// --------------------------------------Token and Authentication Setup--------------------------------------
+const Jwt = require('jsonwebtoken');
+const jwtkey = 'vehisale';
 
-const Jwt = require('jsonwebtoken')
-const jwtkey = 'vehisale'
-
+// Middleware function to verify JWT token
 function verifyToken(req, res, next) {
-    let token = req.headers['authorization']
+    let token = req.headers['authorization'];
     if (token) {
-        token = token.split(' ')[1]
+        token = token.split(' ')[1]; // Extract token from the "Bearer" format
         Jwt.verify(token, jwtkey, (err, valid) => {
             if (err) {
-                res.status(401).send({ result: "Please provide valid token" })
+                res.status(401).send({ result: "Please provide valid token" }); // Invalid token
+            } else {
+                req.valid = valid; // Store validated token payload in request
+                next(); // Proceed to the next middleware or route handler
             }
-            else {
-                req.valid = valid
-                next();
-            }
-        })
-    }
-    else {
-        res.status(403).send({ result: "Please add token with header" })
+        });
+    } else {
+        res.status(403).send({ result: "Please add token with header" }); // Token not provided
     }
 }
 
-
-
 // --------------------------------------POST SignUp--------------------------------------
-
+// Route to handle user registration
 app.post("/register", async (req, res) => {
     try {
-        // Create a new user instance with the request body
-        const user = new User(req.body);
-
-        // Save the user to the database
-        const savedUser = await user.save();
-
-        // Remove sensitive information (password) from the saved user object
-        const userData = savedUser.toObject();
-        delete userData.password;
-
-        // Send back the user data in the response
-        res.send({ user: userData});
+        const user = new User(req.body); // Create a new user instance with request data
+        const savedUser = await user.save(); // Save the user to the database
+        const userData = savedUser.toObject(); // Convert saved user to a plain object
+        delete userData.password; // Exclude password from response for security
+        res.send({ user: userData }); // Send back user data (without password)
     } catch (error) {
         console.error('Error during user registration:', error);
-        res.status(500).send({ result: "Something went wrong, Please try after some time" });
+        res.status(500).send({ result: "Something went wrong, Please try after some time" }); // Handle any errors
     }
 });
-
-
 
 // --------------------------------------POST Login--------------------------------------
-
+// Route to handle user login
 app.post('/login', async (req, res) => {
-    if (req.body.password && req.body.email) {
-        let user = await User.findOne(req.body).select("-password")
+    if (req.body.password && req.body.email) { // Ensure email and password are provided
+        let user = await User.findOne(req.body).select("-password"); // Find user by email and password, excluding password from the result
         if (user) {
-            Jwt.sign({ user }, jwtkey, { expiresIn: "1y" }, (err, token) => {
+            Jwt.sign({ user }, jwtkey, { expiresIn: "1y" }, (err, token) => { // Generate JWT token
                 if (err) {
-                    res.send({ result: "Something went wrong , Please try after some time" })
+                    res.send({ result: "Something went wrong, Please try after some time" }); // Handle token generation errors
                 }
-                res.send({ user, auth: token })
-            })
+                res.send({ user, auth: token }); // Send user data and token to client
+            });
+        } else {
+            res.send({ result: 'No User Found' }); // Handle case where no user is found
         }
-        else {
-            res.send({ result: 'No User Found' })
-        }
-    }
-    else {
-        res.send({ result: "No User Found" })
+    } else {
+        res.send({ result: "No User Found" }); // Handle case where credentials are missing
     }
 });
 
-
-
-// --------------------------------------Middleware to check Admin or not--------------------------------------
-
+// --------------------------------------Middleware to Check Admin Access--------------------------------------
+// Middleware function to check if the user has admin privileges
 const checkAdmin = async (req, res, next) => {
     try {
-        const token = req.headers.authorization.split(' ')[1];
+        const token = req.headers.authorization.split(' ')[1]; // Extract token from the "Bearer" format
         if (!token) {
-            return res.status(403).send('Access denied. No token provided.');
+            return res.status(403).send('Access denied. No token provided.'); // Token not provided
         }
 
-        const decodedToken = jwt.verify(token, 'vehisale'); 
-        const user = await User.findById(decodedToken.userId);
+        const decodedToken = jwt.verify(token, 'vehisale'); // Verify the token
+        const user = await User.findById(decodedToken.userId); // Find the user by ID from the token payload
 
-        if (user && user.isAdmin) {
-            req.user = user; 
-            next();
+        if (user && user.isAdmin) { // Check if the user is an admin
+            req.user = user; // Store user data in the request
+            next(); // Proceed to the next middleware or route handler
         } else {
-            res.status(403).send('Access denied. Only admins can access this route.');
+            res.status(403).send('Access denied. Only admins can access this route.'); // Access denied for non-admins
         }
     } catch (error) {
-        res.status(403).send('Access denied.');
+        res.status(403).send('Access denied.'); // Handle token verification errors
     }
 };
 
+// --------------------------------------Admin Dashboard Route--------------------------------------
+// Route to handle admin dashboard access, protected by checkAdmin middleware
 app.get('/admindashboard', checkAdmin, (req, res) => {
-    res.send('Welcome to the admin dashboard');
+    res.send('Welcome to the admin dashboard'); // Respond with a welcome message
 });
 
-
-
 // --------------------------------------POST New Product--------------------------------------
+// Route to handle adding a new product, saving it to the PendingProduct collection for admin approval
+const storage = multer.memoryStorage(); // Configure multer to store files in memory
+const upload = multer({ storage: storage }); // Set up multer for handling file uploads
 
-// Define storage for uploaded images
-const storage = multer.memoryStorage();
-
-// Define multer upload settings
-const upload = multer({ storage: storage });
-
-// POST route for adding new product
 app.post('/add-product', verifyToken, upload.single('image'), async (req, res) => {
     try {
-        // Check if file was uploaded
         if (!req.file) {
-            return res.status(400).json({ error: 'No file uploaded' });
+            return res.status(400).json({ error: 'No file uploaded' }); // Return an error if no file is uploaded
         }
-
-        // Extract data from the request body
+        // Destructure product details from the request body
         const { name, price, category, company, year, mileage, color, transmission, fuelType } = req.body;
-
-        // Extract image data (base64 encoded)
-        const image = req.file.buffer.toString('base64');
-
-        // Extract user ID from the token
-        const userId = req.valid.user._id;
-
-        // Create a new product instance with all fields including user ID
+        const image = req.file.buffer.toString('base64'); // Convert image buffer to base64 format
+        const userId = req.valid.user._id; // Get the user ID from the verified token
+        // Create a new PendingProduct instance
         const product = new PendingProduct({
             name,
             price,
@@ -157,52 +129,40 @@ app.post('/add-product', verifyToken, upload.single('image'), async (req, res) =
             image,
             userId
         });
-
-        // Save the product to the database
-        const result = await product.save();
-
-        res.status(201).json(result);
+        const result = await product.save(); // Save the pending product to the database
+        res.status(201).json(result); // Send the saved product as a response
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+        console.error(error); // Log any errors that occur
+        res.status(500).send('Internal Server Error'); // Send an error response if something goes wrong
     }
 });
 
-
-
-// --------------------------------------GET all pending products--------------------------------------
-
+// --------------------------------------GET All Pending Products--------------------------------------
+// Route to fetch all products that are pending admin approval
 app.get('/pending-products', verifyToken, async (req, res) => {
     try {
-        const pendingProducts = await PendingProduct.find();
-
-        res.json(pendingProducts);
+        const pendingProducts = await PendingProduct.find(); // Retrieve all pending products from the database
+        res.json(pendingProducts); // Send the pending products as a JSON response
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+        console.error(error); // Log any errors that occur
+        res.status(500).send('Internal Server Error'); // Send an error response if something goes wrong
     }
 });
 
-
-
-// --------------------------------------PUT route for approving or rejecting pending products--------------------------------------
-
+// --------------------------------------PUT Route for Approving or Rejecting Pending Products--------------------------------------
+// Route to handle approval or rejection of pending products
 app.put('/pending-products/approve-reject/:id', verifyToken, async (req, res) => {
     try {
-        const { id } = req.params;
-        const { action, reason } = req.body; // Added reason field
-
+        const { id } = req.params; // Get the product ID from the route parameters
+        const { action, reason } = req.body; // Destructure action (approve/reject) and reason (if rejected) from the request body
         let product;
         let rejectedProduct;
-
-        if (action === 'approve') {
-            // Get pending product details
-            const pendingProduct = await PendingProduct.findById(id);
+        if (action === 'approve') { // Handle product approval
+            const pendingProduct = await PendingProduct.findById(id); // Find the product by ID
             if (!pendingProduct) {
-                return res.status(404).json({ error: 'Pending product not found' });
+                return res.status(404).json({ error: 'Pending product not found' }); // Handle case where product is not found
             }
-
-            // Create a new product instance using pending product details
+            // Create a new Product instance using the pending product's data
             product = new Product({
                 name: pendingProduct.name,
                 price: pendingProduct.price,
@@ -216,22 +176,16 @@ app.put('/pending-products/approve-reject/:id', verifyToken, async (req, res) =>
                 fuelType: pendingProduct.fuelType,
                 userId: pendingProduct.userId
             });
+            await product.save(); // Save the approved product to the Product collection
+            await PendingProduct.findByIdAndDelete(id); // Remove the product from the PendingProduct collection
+            res.status(200).json({ message: 'Product approved successfully' }); // Send a success response
 
-            // Save the new product to the products collection
-            await product.save();
-
-            // Delete the pending product from the pending products collection
-            await PendingProduct.findByIdAndDelete(id);
-
-            res.status(200).json({ message: 'Product approved successfully' });
-        } else if (action === 'reject') {
-            // Get pending product details
-            const pendingProduct = await PendingProduct.findById(id);
+        } else if (action === 'reject') { // Handle product rejection
+            const pendingProduct = await PendingProduct.findById(id); // Find the product by ID
             if (!pendingProduct) {
-                return res.status(404).json({ error: 'Pending product not found' });
+                return res.status(404).json({ error: 'Pending product not found' }); // Handle case where product is not found
             }
-
-            // Create a new rejected product instance using pending product details
+            // Create a new RejectedProduct instance using the pending product's data and rejection reason
             rejectedProduct = new RejectedProduct({
                 name: pendingProduct.name,
                 price: pendingProduct.price,
@@ -244,231 +198,195 @@ app.put('/pending-products/approve-reject/:id', verifyToken, async (req, res) =>
                 transmission: pendingProduct.transmission,
                 fuelType: pendingProduct.fuelType,
                 userId: pendingProduct.userId,
-                reason: reason // Save the rejection reason
+                reason: reason 
             });
-
-            // Save the new rejected product to the rejected products collection
-            await rejectedProduct.save();
-
-            // Delete the pending product from the pending products collection
-            await PendingProduct.findByIdAndDelete(id);
-
-            res.status(200).json({ message: 'Product rejected successfully' });
+            await rejectedProduct.save(); // Save the rejected product to the RejectedProduct collection
+            await PendingProduct.findByIdAndDelete(id); // Remove the product from the PendingProduct collection
+            res.status(200).json({ message: 'Product rejected successfully' }); // Send a success response
         } else {
-            res.status(400).json({ error: 'Invalid action' });
+            res.status(400).json({ error: 'Invalid action' }); // Handle invalid actions
         }
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+        console.error(error); // Log any errors that occur
+        res.status(500).send('Internal Server Error'); // Send an error response if something goes wrong
     }
 });
 
-
-
-// --------------------------------------GET all rejected products--------------------------------------
-
+// --------------------------------------GET All Rejected Products--------------------------------------
+// Route to fetch all products that have been rejected
 app.get('/rejected-products', verifyToken, async (req, res) => {
     try {
-        const rejectedProducts = await RejectedProduct.find();
-        res.json(rejectedProducts);
+        const rejectedProducts = await RejectedProduct.find(); // Retrieve all rejected products from the database
+        res.json(rejectedProducts); // Send the rejected products as a JSON response
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+        console.error(error); // Log any errors that occur
+        res.status(500).send('Internal Server Error'); // Send an error response if something goes wrong
     }
 });
 
-
-
-// --------------------------------------GET all approved cars added by the particular user--------------------------------------
-
+// --------------------------------------GET All Approved Cars Added by a Particular User--------------------------------------
+// Route to fetch all approved products (cars) added by the currently authenticated user
 app.get('/user-cars', verifyToken, async (req, res) => {
     try {
-        // Extract user ID from the token
-        const userId = req.valid.user._id;
-
-        // Find cars added by the current user from the Product collection
-        const userCars = await Product.find({ userId });
-
-        // Respond with the user's cars
-        res.status(200).json(userCars);
+        const userId = req.valid.user._id; // Extract user ID from the verified token
+        const userCars = await Product.find({ userId }); // Find all approved products by user ID
+        res.status(200).json(userCars); // Send the user's cars as a JSON response
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+        console.error(error); // Log any errors that occur
+        res.status(500).send('Internal Server Error'); // Send an error response if something goes wrong
     }
 });
 
-
-
-// --------------------------------------GET all rejected cars added by the particular user--------------------------------------
-
+// --------------------------------------GET All Rejected Cars Added by a Particular User--------------------------------------
+// Route to fetch all rejected products (cars) added by the currently authenticated user
 app.get('/user-rejected-cars', verifyToken, async (req, res) => {
     try {
-        // Extract user ID from the token
-        const userId = req.valid.user._id;
-
-        // Find cars added by the current user from the RejectedProduct collection
-        const userRejectedCars = await RejectedProduct.find({ userId });
-
-        // Respond with the user's rejected cars
-        res.status(200).json(userRejectedCars);
+        const userId = req.valid.user._id; // Extract user ID from the verified token
+        const userRejectedCars = await RejectedProduct.find({ userId }); // Find all rejected products by user ID
+        res.status(200).json(userRejectedCars); // Send the user's rejected cars as a JSON response
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+        console.error(error); // Log any errors that occur
+        res.status(500).send('Internal Server Error'); // Send an error response if something goes wrong
     }
 });
 
-
-
-// --------------------------------------GET all pending cars added by the particular user--------------------------------------
-
+// --------------------------------------GET All Pending Cars Added by a Particular User--------------------------------------
+// Route to fetch all pending products (cars) added by the currently authenticated user
 app.get('/user-pending-cars', verifyToken, async (req, res) => {
     try {
-        // Extract user ID from the token
-        const userId = req.valid.user._id;
-
-        // Find cars added by the current user from the Product collection
-        const userPendingCars = await PendingProduct.find({ userId });
-
-        // Respond with the user's cars
-        res.status(200).json(userPendingCars);
+        const userId = req.valid.user._id; // Extract user ID from the verified token
+        const userPendingCars = await PendingProduct.find({ userId }); // Find all pending products by user ID
+        res.status(200).json(userPendingCars); // Send the user's pending cars as a JSON response
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+        console.error(error); // Log any errors that occur
+        res.status(500).send('Internal Server Error'); // Send an error response if something goes wrong
     }
 });
 
-
-
-// --------------------------------------GET all products--------------------------------------
-
+// --------------------------------------GET All Products with Optional Filters--------------------------------------
+// Route to fetch all products with optional filtering based on query parameters
 app.get('/products', verifyToken, async (req, res) => {
     try {
-        const filters = {};
-
+        const filters = {}; // Initialize an empty filter object
+        // Apply filters based on query parameters
         if (req.query.category) filters.category = req.query.category;
         if (req.query.priceRange) {
+            // Parse price range and convert to integer values
             const [minPrice, maxPrice] = req.query.priceRange.split('-').map(price => parseInt(price.replace(/,/g, '')));
-            filters.price = { $gte: minPrice, $lte: maxPrice };
+            filters.price = { $gte: minPrice, $lte: maxPrice }; // Set price range filter
         }
-        if (req.query.colors) filters.color = { $in: req.query.colors.split(',') };
-        if (req.query.company) filters.company = req.query.company;
-        if (req.query.transmission) filters.transmission = req.query.transmission;
-        if (req.query.fuelType) filters.fuelType = req.query.fuelType;
+        if (req.query.colors) filters.color = { $in: req.query.colors.split(',') }; // Filter by colors
+        if (req.query.company) filters.company = req.query.company; // Filter by company
+        if (req.query.transmission) filters.transmission = req.query.transmission; // Filter by transmission
+        if (req.query.fuelType) filters.fuelType = req.query.fuelType; // Filter by fuel type
 
-        const products = await Product.find(filters);
-        res.status(200).json(products);
+        const products = await Product.find(filters); // Find products matching the filters
+        res.status(200).json(products); // Send the filtered products as a JSON response
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error');
+        console.error(error); // Log any errors that occur
+        res.status(500).send('Internal Server Error'); // Send an error response if something goes wrong
     }
 });
 
-
-
-// --------------------------------------GET all products by their ID--------------------------------------
-
+// --------------------------------------GET Product by ID--------------------------------------
+// Route to fetch a specific product by its ID
 app.get('/products/:id', async (req, res) => {
     try {
-        const product = await Product.findById(req.params.id);
-        if (!product ) {
-            return res.status(404).send('Product not found');
+        const product = await Product.findById(req.params.id); // Find the product by ID
+        if (!product) {
+            return res.status(404).send('Product not found'); // Handle case where product is not found
         }
-        res.json(product);
+        res.json(product); // Send the product details as a JSON response
     } catch (error) {
-        res.status(500).send('Server error');
+        console.error(error); // Log any errors that occur
+        res.status(500).send('Server error'); // Send an error response if something goes wrong
     }
 });
 
-
-
 // --------------------------------------DELETE Product--------------------------------------
-
+// Route to delete a product by its ID
 app.delete('/product/:id', verifyToken, async (req, res) => {
-    const result = await Product.deleteOne({ _id: req.params.id })
-    res.send(result)
+    try {
+        // Delete the product from the Product collection
+        const result = await Product.deleteOne({ _id: req.params.id });
+        res.status(200).json(result); // Send the result of the deletion operation
+    } catch (error) {
+        console.error('Error deleting product:', error); // Log any errors that occur
+        res.status(500).send('Internal Server Error'); // Send an error response if something goes wrong
+    }
 });
-
-
 
 // --------------------------------------UPDATE Product--------------------------------------
-
+// Route to update a product by its ID
 app.put('/product/:id', verifyToken, async (req, res) => {
-    let result = await Product.updateOne(
-        { _id: req.params.id },
-        {
-            $set: req.body
-        }
-    )
-    res.send(result)
+    try {
+        // Update the product in the Product collection
+        let result = await Product.updateOne(
+            { _id: req.params.id },
+            { $set: req.body } // Set the new values for the product fields
+        );
+        res.status(200).json(result); // Send the result of the update operation
+    } catch (error) {
+        console.error('Error updating product:', error); // Log any errors that occur
+        res.status(500).send('Internal Server Error'); // Send an error response if something goes wrong
+    }
 });
 
-
-
 // --------------------------------------GET Method for Searching--------------------------------------
-
+// Route to search for products by name or company using a search key
 app.get('/search/:key', verifyToken, async (req, res) => {
     const searchKey = req.params.key;
     try {
+        // Search for products that match the search key in name or company fields
         let result = await Product.find({
             $or: [
-                { name: { $regex: searchKey, $options: 'i' } },
-                { company: { $regex: searchKey, $options: 'i' } }
+                { name: { $regex: searchKey, $options: 'i' } }, // Case-insensitive search by name
+                { company: { $regex: searchKey, $options: 'i' } } // Case-insensitive search by company
             ]
         });
-        res.send(result);
+        res.status(200).json(result); // Send the search results as a JSON response
     } catch (error) {
-        console.error('Error searching for products:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        console.error('Error searching for products:', error); // Log any errors that occur
+        res.status(500).json({ error: 'Internal server error' }); // Send an error response if something goes wrong
     }
 });
 
-
-
 // --------------------------------------POST a Testimonial--------------------------------------
-
+// Route to create a new testimonial
 app.post('/testimonials', verifyToken, async (req, res) => {
     try {
         const { name, text } = req.body;
+
+        // Validate that both name and text are provided
         if (!name || !text) {
             return res.status(400).json({ error: 'Name and text are required' });
         }
+
+        // Create and save a new testimonial
         const newTestimonial = new Testimonial({ name, text });
         await newTestimonial.save();
-        res.status(201).json(newTestimonial);
+        res.status(201).json(newTestimonial); // Send the newly created testimonial as a response
     } catch (error) {
-        console.error('Error creating testimonial:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.error('Error creating testimonial:', error); // Log any errors that occur
+        res.status(500).json({ error: 'Internal Server Error' }); // Send an error response if something goes wrong
     }
 });
 
-
-
-// --------------------------------------GET all Testimonials--------------------------------------
-
+// --------------------------------------GET All Testimonials--------------------------------------
+// Route to fetch all testimonials
 app.get('/testimonials', verifyToken, async (req, res) => {
     try {
         const testimonials = await Testimonial.find();
+        
+        // Handle case where no testimonials are found
         if (!testimonials || testimonials.length === 0) {
             return res.status(404).json({ error: 'No testimonials found' });
         }
-        res.status(200).json(testimonials);
+        res.status(200).json(testimonials); // Send the list of testimonials as a JSON response
     } catch (error) {
-        console.error('Error fetching testimonials:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        console.error('Error fetching testimonials:', error); // Log any errors that occur
+        res.status(500).json({ error: 'Internal Server Error' }); // Send an error response if something goes wrong
     }
 });
-
-
-
-// --------------------------------------POST Payment Integration--------------------------------------
-
-// app.post('/orders', (req,res) => {
-//     const razorpay = new Razorpay({
-//         key_id: "",
-//         key_secret: ""
-//     })
-// })
-
-
 
 app.listen(5000);
