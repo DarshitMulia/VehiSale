@@ -1,12 +1,13 @@
 const express = require('express')
 const cors = require('cors')
 const multer = require('multer')
+const Razorpay = require('razorpay')
 const bodyParser = require('body-parser')
 const User = require('./db/User')
 const Product = require('./db/Product')
 const PendingProduct = require('./db/PendingProduct')
 const RejectedProduct = require('./db/RejectedProduct')
-const Testimonial = require('./db/Testimonial');
+const Testimonial = require('./db/Testimonial')
 const app = express()
 require('./db/config')
 
@@ -456,6 +457,17 @@ app.get('/testimonials', verifyToken, async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+
+
+// --------------------------------------POST Payment Integration--------------------------------------
+
+// app.post('/orders', (req,res) => {
+//     const razorpay = new Razorpay({
+//         key_id: "",
+//         key_secret: ""
+//     })
+// })
 
 
 
