@@ -134,6 +134,7 @@ const AddProduct = () => {
     };
 
     return (
+        
         <div>
             {showPopup && (
                 <div class="add-product-popup">
@@ -154,6 +155,20 @@ const AddProduct = () => {
                 <div className="add-product-container">
                     <div className='row'>
                         <div className="col">
+                            <p><b>Upload Car Image</b></p>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageChange}
+                                className="add-product-input" />
+                            {errors.image && <p className="error-message" style={{ fontSize: "12px" }}>{errors.image}</p>}
+                        </div>
+                    </div>
+
+                    <div style={{ marginBottom: "20px" }}></div>
+
+                    <div className='row'>
+                        <div className="col">
                             <p><b>Model</b></p>
                             <input
                                 type="text"
@@ -165,16 +180,33 @@ const AddProduct = () => {
                         </div>
 
                         <div className="col">
+                            <p><b>Year</b></p>
+                            <input
+                                type="number"
+                                placeholder="Enter Year"
+                                value={year}
+                                onChange={(e) => setYear(e.target.value)}
+                                className="add-product-input"
+                                min="1990"
+                                max="2024" />
+                            {errors.year && <p className="error-message" style={{ fontSize: "12px" }}>{errors.year}</p>}
+                        </div>
+
+                        <div className="col">
                             <p><b>Price</b></p>
                             <input
-                                type="text"
+                                type="number"
                                 placeholder="Enter Price"
                                 value={price}
                                 onChange={(e) => setPrice(e.target.value)}
                                 className="add-product-input" />
                             {errors.price && <p className="error-message" style={{ fontSize: "12px" }}>{errors.price}</p>}
                         </div>
+                    </div>
 
+                    <div style={{ marginBottom: "20px" }}></div>
+
+                    <div className='row'>
                         <div className="col">
                             <p><b>Category</b></p>
                             <select
@@ -194,11 +226,7 @@ const AddProduct = () => {
                             </select>
                             {errors.category && <p className="error-message" style={{ fontSize: "12px" }}>{errors.category}</p>}
                         </div>
-                    </div>
 
-                    <div style={{ marginBottom: "20px" }}></div>
-
-                    <div className='row'>
                         <div className="col">
                             <p><b>Company</b></p>
                             <select
@@ -263,25 +291,16 @@ const AddProduct = () => {
 
                     <div className='row'>
                         <div className="col">
-                            <p><b>Year</b></p>
-                            <input
-                                type="text"
-                                placeholder="Enter Year"
-                                value={year}
-                                onChange={(e) => setYear(e.target.value)}
-                                className="add-product-input" />
-                            {errors.year && <p className="error-message" style={{ fontSize: "12px" }}>{errors.year}</p>}
-                        </div>
-                        <div className="col">
                             <p><b>Mileage</b></p>
                             <input
-                                type="text"
+                                type="number"
                                 placeholder="Enter Mileage"
                                 value={mileage}
                                 onChange={(e) => setMileage(e.target.value)}
                                 className="add-product-input" />
                             {errors.mileage && <p className="error-message" style={{ fontSize: "12px" }}>{errors.mileage}</p>}
                         </div>
+
                         <div className="col">
                             <p><b>Color</b></p>
                             <select
@@ -311,7 +330,7 @@ const AddProduct = () => {
                     <div style={{ marginBottom: "20px" }}></div>
 
                     <div className='row'>
-                    <div className="col">
+                        <div className="col">
                             <p><b>Fuel Type</b></p>
                             <select
                                 value={fuelType}
@@ -327,11 +346,7 @@ const AddProduct = () => {
                             </select>
                             {errors.fuelType && <p className="error-message" style={{ fontSize: "12px" }}>{errors.fuelType}</p>}
                         </div>
-                    </div>
 
-                    <div style={{ marginBottom: "20px" }}></div>
-
-                    <div className='row'>
                         <div className="col">
                             <p><b>Transmission</b></p>
                             <div className="radio-buttons">
@@ -359,15 +374,6 @@ const AddProduct = () => {
                                 </label>
                             </div>
                             {errors.transmission && <p className="error-message" style={{ fontSize: "12px" }}>{errors.transmission}</p>}
-                        </div>
-                        <div className="col">
-                            <p><b>Upload Car Image</b></p>
-                            <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleImageChange}
-                                className="add-product-input" />
-                            {errors.image && <p className="error-message" style={{ fontSize: "12px" }}>{errors.image}</p>}
                         </div>
                     </div>
 

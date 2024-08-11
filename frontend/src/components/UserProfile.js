@@ -188,7 +188,7 @@ const UserProfile = () => {
                                                     <td>₹ {item.price}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><p>year</p></td>
+                                                    <td><p>Year</p></td>
                                                     <td>:</td>
                                                     <td>{item.year}</td>
                                                 </tr>
@@ -228,8 +228,8 @@ const UserProfile = () => {
                                 <h2 className="modal-header">Confirm Logout</h2>
                                 <p>Are you sure you want to log out?</p>
                                 <div className="modal-buttons">
-                                    <button className="modal-cancel-button" onClick={() => setModalIsOpen(false)}>Cancel</button>
-                                    <button className="modal-submit-button" onClick={logout}>Logout</button>
+                                    <button className="modal-logout-cancel-button" onClick={() => setModalIsOpen(false)}>Cancel</button>
+                                    <button className="modal-logout-submit-button" onClick={logout}>Logout</button>
                                 </div>
                             </div>
                         </Modal>

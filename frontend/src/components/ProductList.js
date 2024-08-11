@@ -269,7 +269,7 @@ const ProductList = () => {
                                         <img src={`data:image/jpeg;base64,${item.image}`} alt={item.name} />
                                     </div>
                                     <div className="product-details-first-line">
-                                        <h4>{item.name}</h4>
+                                        <h5>{item.name}</h5>
                                         <p style={{fontWeight:"bold"}}>₹ {item.price}</p>
                                     </div>
                                     <div className="container">

@@ -1,7 +1,10 @@
 /* ----------------------------------------------------Login and SignUp----------------------------------------------------*/
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
 body {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: "Montserrat", sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -432,7 +435,7 @@ body {
 }
 
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: "Montserrat", sans-serif;
   background-color: var(--background-color);
   margin: 0;
   padding: 0;
@@ -1230,8 +1233,8 @@ body {
   gap: 10px;
 }
 
-.modal-cancel-button,
-.modal-submit-button {
+.modal-logout-cancel-button,
+.modal-logout-submit-button {
   flex: 1;
   padding: 10px;
   font-size: 16px;
@@ -1240,21 +1243,21 @@ body {
   cursor: pointer;
 }
 
-.modal-cancel-button {
+.modal-logout-cancel-button {
   background-color: #ddd;
   color: #333;
 }
 
-.modal-submit-button {
+.modal-logout-submit-button {
   background-color: #d9534f;
   color: white;
 }
 
-.modal-cancel-button:hover {
+.modal-logout-cancel-button:hover {
   background-color: #ccc;
 }
 
-.modal-submit-button:hover {
+.modal-logout-submit-button:hover {
   background-color: #c9302c;
 }
 
