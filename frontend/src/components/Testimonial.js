@@ -104,7 +104,7 @@ const Testimonial = () => {
           <button type="submit" style={{ marginBottom: "20px" }}>Submit</button>
         </form>
 
-        <div className="row">
+        <div className="row testimonial-row">
           {testimonials.map((testimonial, index) => (
             <div className="col" key={index}>
               <div className="testimonial">
