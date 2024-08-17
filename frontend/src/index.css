@@ -784,7 +784,6 @@ body {
 
 .col {
   flex: 1;
-  padding: 20px;
 }
 
 .productdetail-image {
@@ -1459,7 +1458,7 @@ body {
   margin-bottom: 20px;
 }
 
-.row {
+.testimonial-row {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
