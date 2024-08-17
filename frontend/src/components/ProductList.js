@@ -99,22 +99,22 @@ const ProductList = () => {
                 <div className="carousel-inner img-blur">
                     <div className="carousel-item active">
                         <img src="https://www.strongrentacar.com/images/2023/04/09/Rent-A-Car-for-Family-Road-Trip.jpg" className="d-block w-100" alt="..." />
-                        <div className="carousel-caption d-none d-md-block">
-                            <h6 style={{ fontWeight: "bold" }} className="carousel-font">DON'T DREAM IT , DRIVE IT</h6>
+                        <div className="carousel-caption d-none d-md-block caption-background">
+                            <h5 className="carousel-font">DON'T DREAM IT , DRIVE IT</h5>
                             <p className="carousel-font">Set out on the path to joy and become a valued member of VehiSale.</p>
                         </div>
                     </div>
                     <div className="carousel-item img-blur">
                         <img src="https://b1926513.smushcdn.com/1926513/wp-content/uploads/2022/03/Insurance-for-driving-test-opt-2500x1667.jpg?lossy=1&strip=1&webp=0" className="d-block w-100" alt="..." />
-                        <div className="carousel-caption d-none d-md-block carousel-font">
-                            <h6 style={{ fontWeight: "bold" }} className="carousel-font">WHERE ROADS LEAD, STORIES FOLLOW</h6>
+                        <div className="carousel-caption d-none d-md-block caption-background">
+                            <h5 className="carousel-font">WHERE ROADS LEAD, STORIES FOLLOW</h5>
                             <p className="carousel-font">Kickstart your quest for satisfaction and become part of the VehiSale family.</p>
                         </div>
                     </div>
                     <div className="carousel-item img-blur">
                         <img src="https://images.ctfassets.net/2sam6k0rncvg/5jB1yO0HQgS6z6153Kzdvw/76acb25f5bef27862270a724bdd32ecf/best-family-cars-in-india.png" className="d-block w-100" alt="..." />
-                        <div className="carousel-caption d-none d-md-block carousel-font">
-                            <h6 style={{ fontWeight: "bold" }} className="carousel-font">BEYOND BOUNDARIES, BEHIND WHEELS</h6>
+                        <div className="carousel-caption d-none d-md-block caption-background">
+                            <h5 className="carousel-font">BEYOND BOUNDARIES, BEHIND WHEELS</h5>
                             <p className="carousel-font">Begin your adventure towards fulfillment with VehiSale by your side.</p>
                         </div>
                     </div>
@@ -270,7 +270,7 @@ const ProductList = () => {
                                     </div>
                                     <div className="product-details-first-line">
                                         <h5>{item.name}</h5>
-                                        <p style={{fontWeight:"bold"}}>₹ {item.price}</p>
+                                        <p style={{ fontWeight: "bold" }}>₹ {item.price}</p>
                                     </div>
                                     <div className="container">
                                         <Link to={`/productdetails/${item._id}`} className="view-details-link">

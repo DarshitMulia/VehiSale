@@ -220,29 +220,6 @@ body {
 
 /* ----------------------------------------------------Header---------------------------------------------------- */
 
-.carousel-font {
-  color: black;
-}
-
-.img-blur img {
-  opacity: 0.6;
-}
-
-.img-blur .carousel-caption {
-  position: absolute;
-  top: 70%;
-  transform: translateY(-50%);
-  left: 50%;
-  transform: translateX(-50%);
-  color: #fff;
-}
-
-.carousel-inner .carousel-item img {
-  width: 100%;
-  height: 500px;
-  object-fit: cover;
-}
-
 .navbar {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 0;
@@ -361,16 +338,50 @@ body {
 
 /* ----------------------------------------------------Product List---------------------------------------------------- */
 
-.carousel-caption {
+
+.img-blur img {
+  opacity: 0.7;
+}
+
+.img-blur .carousel-caption {
   position: absolute;
-  right: 15%;
-  bottom: 20px;
-  left: 15%;
-  z-index: 10;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  top: 70%;
+  transform: translateY(-50%);
+  left: 50%;
+  transform: translateX(-50%);
   color: #fff;
+}
+
+.carousel-inner .carousel-item img {
+  width: 100%;
+  height: 550px;
+  object-fit: cover;
+}
+
+.caption-background {
+  background-color: rgba(0, 0, 0, 0.4); 
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.carousel-caption {
   text-align: center;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.carousel-caption h5 {
+  color: white;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.carousel-caption p {
+  color: white;
+  font-size: 1rem;
+  margin: 0;
 }
 
 @media (max-width: 430px) {
@@ -397,7 +408,7 @@ body {
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 405px;
+  max-width: 450px;
   margin: 0 auto;
 }
 
