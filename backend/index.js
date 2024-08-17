@@ -15,6 +15,12 @@ app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 
+
+
+
+
+
+
 // --------------------------------------Token and Authentication Setup--------------------------------------
 const Jwt = require('jsonwebtoken');
 const jwtkey = 'vehisale';
@@ -37,6 +43,12 @@ function verifyToken(req, res, next) {
     }
 }
 
+
+
+
+
+
+
 // --------------------------------------POST SignUp--------------------------------------
 // Route to handle user registration
 app.post("/register", async (req, res) => {
@@ -51,6 +63,12 @@ app.post("/register", async (req, res) => {
         res.status(500).send({ result: "Something went wrong, Please try after some time" }); // Handle any errors
     }
 });
+
+
+
+
+
+
 
 // --------------------------------------POST Login--------------------------------------
 // Route to handle user login
@@ -71,6 +89,12 @@ app.post('/login', async (req, res) => {
         res.send({ result: "No User Found" }); // Handle case where credentials are missing
     }
 });
+
+
+
+
+
+
 
 // --------------------------------------Middleware to Check Admin Access--------------------------------------
 // Middleware function to check if the user has admin privileges
@@ -95,11 +119,23 @@ const checkAdmin = async (req, res, next) => {
     }
 };
 
+
+
+
+
+
+
 // --------------------------------------Admin Dashboard Route--------------------------------------
 // Route to handle admin dashboard access, protected by checkAdmin middleware
 app.get('/admindashboard', checkAdmin, (req, res) => {
     res.send('Welcome to the admin dashboard'); // Respond with a welcome message
 });
+
+
+
+
+
+
 
 // --------------------------------------POST New Product--------------------------------------
 // Route to handle adding a new product, saving it to the PendingProduct collection for admin approval
@@ -137,6 +173,12 @@ app.post('/add-product', verifyToken, upload.single('image'), async (req, res) =
     }
 });
 
+
+
+
+
+
+
 // --------------------------------------GET All Pending Products--------------------------------------
 // Route to fetch all products that are pending admin approval
 app.get('/pending-products', verifyToken, async (req, res) => {
@@ -148,6 +190,12 @@ app.get('/pending-products', verifyToken, async (req, res) => {
         res.status(500).send('Internal Server Error'); // Send an error response if something goes wrong
     }
 });
+
+
+
+
+
+
 
 // --------------------------------------PUT Route for Approving or Rejecting Pending Products--------------------------------------
 // Route to handle approval or rejection of pending products
@@ -212,6 +260,12 @@ app.put('/pending-products/approve-reject/:id', verifyToken, async (req, res) =>
     }
 });
 
+
+
+
+
+
+
 // --------------------------------------GET All Rejected Products--------------------------------------
 // Route to fetch all products that have been rejected
 app.get('/rejected-products', verifyToken, async (req, res) => {
@@ -223,6 +277,12 @@ app.get('/rejected-products', verifyToken, async (req, res) => {
         res.status(500).send('Internal Server Error'); // Send an error response if something goes wrong
     }
 });
+
+
+
+
+
+
 
 // --------------------------------------GET All Approved Cars Added by a Particular User--------------------------------------
 // Route to fetch all approved products (cars) added by the currently authenticated user
@@ -237,6 +297,12 @@ app.get('/user-cars', verifyToken, async (req, res) => {
     }
 });
 
+
+
+
+
+
+
 // --------------------------------------GET All Rejected Cars Added by a Particular User--------------------------------------
 // Route to fetch all rejected products (cars) added by the currently authenticated user
 app.get('/user-rejected-cars', verifyToken, async (req, res) => {
@@ -250,6 +316,12 @@ app.get('/user-rejected-cars', verifyToken, async (req, res) => {
     }
 });
 
+
+
+
+
+
+
 // --------------------------------------GET All Pending Cars Added by a Particular User--------------------------------------
 // Route to fetch all pending products (cars) added by the currently authenticated user
 app.get('/user-pending-cars', verifyToken, async (req, res) => {
@@ -262,6 +334,12 @@ app.get('/user-pending-cars', verifyToken, async (req, res) => {
         res.status(500).send('Internal Server Error'); // Send an error response if something goes wrong
     }
 });
+
+
+
+
+
+
 
 // --------------------------------------GET All Products with Optional Filters--------------------------------------
 // Route to fetch all products with optional filtering based on query parameters
@@ -288,6 +366,12 @@ app.get('/products', verifyToken, async (req, res) => {
     }
 });
 
+
+
+
+
+
+
 // --------------------------------------GET Product by ID--------------------------------------
 // Route to fetch a specific product by its ID
 app.get('/products/:id', async (req, res) => {
@@ -303,6 +387,12 @@ app.get('/products/:id', async (req, res) => {
     }
 });
 
+
+
+
+
+
+
 // --------------------------------------DELETE Product--------------------------------------
 // Route to delete a product by its ID
 app.delete('/product/:id', verifyToken, async (req, res) => {
@@ -315,6 +405,12 @@ app.delete('/product/:id', verifyToken, async (req, res) => {
         res.status(500).send('Internal Server Error'); // Send an error response if something goes wrong
     }
 });
+
+
+
+
+
+
 
 // --------------------------------------UPDATE Product--------------------------------------
 // Route to update a product by its ID
@@ -331,6 +427,12 @@ app.put('/product/:id', verifyToken, async (req, res) => {
         res.status(500).send('Internal Server Error'); // Send an error response if something goes wrong
     }
 });
+
+
+
+
+
+
 
 // --------------------------------------GET Method for Searching--------------------------------------
 // Route to search for products by name or company using a search key
@@ -350,6 +452,12 @@ app.get('/search/:key', verifyToken, async (req, res) => {
         res.status(500).json({ error: 'Internal server error' }); // Send an error response if something goes wrong
     }
 });
+
+
+
+
+
+
 
 // --------------------------------------POST a Testimonial--------------------------------------
 // Route to create a new testimonial
@@ -371,6 +479,12 @@ app.post('/testimonials', verifyToken, async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' }); // Send an error response if something goes wrong
     }
 });
+
+
+
+
+
+
 
 // --------------------------------------GET All Testimonials--------------------------------------
 // Route to fetch all testimonials
