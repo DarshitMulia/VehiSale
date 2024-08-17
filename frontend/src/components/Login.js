@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import '../styles/signuplogin.css';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -83,18 +84,18 @@ const Login = () => {
 
     return (
         <div className="centered-element">
-            <div className="login-container login-image">
-                <div className="login-content">
+            <div className="signuplogin-container">
+                <div className="signuplogin-content">
                     <div className="welcome-text">
                         <h3>
                             Welcome back to the <span className="highlight">World of Cars!</span>
                         </h3>
                     </div>
-                    <div className="login-form-container">
-                        <div className="login-image">
+                    <div className="signuplogin-form-container">
+                        <div className="signuplogin-image">
                             <img src="./images/logincars.webp" alt="img" />
                         </div>
-                        <div className="login-form">
+                        <div className="signuplogin-form">
                             <h1>Login</h1>
                             <div className="form-group">
                                 <input 
@@ -114,11 +115,11 @@ const Login = () => {
                                 {error.password && <p style={{ color: 'red', fontSize: '12px' }}>{error.password}</p>}
                             </div>
                             <center>
-                                <button className="login-button" onClick={handleLogin}>
+                                <button className="signuplogin-button" onClick={handleLogin}>
                                     Login
                                 </button>
                             </center>
-                            <div className='login-link'>
+                            <div className='signuplogin-link'>
                                 <p style={{marginRight:"10px"}}>New User?</p>
                                 <Link to="/signup">SignUp</Link>
                             </div>

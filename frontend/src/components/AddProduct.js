@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../styles/addproduct.css';
 
 const AddProduct = () => {
     const [name, setName] = useState('');
@@ -134,7 +135,6 @@ const AddProduct = () => {
     };
 
     return (
-        
         <div>
             {showPopup && (
                 <div class="add-product-popup">
@@ -153,7 +153,7 @@ const AddProduct = () => {
                 <h1>Add Car</h1>
                 <div className='border'></div>
                 <div className="add-product-container">
-                    <div className='row'>
+                    <div className='row mb-3'>
                         <div className="col">
                             <p><b>Upload Car Image</b></p>
                             <input
@@ -165,10 +165,8 @@ const AddProduct = () => {
                         </div>
                     </div>
 
-                    <div style={{ marginBottom: "20px" }}></div>
-
-                    <div className='row'>
-                        <div className="col">
+                    <div className='row mb-3'>
+                        <div className="col me-4">
                             <p><b>Model</b></p>
                             <input
                                 type="text"
@@ -179,7 +177,7 @@ const AddProduct = () => {
                             {errors.name && <p className="error-message" style={{ fontSize: "12px" }}>{errors.name}</p>}
                         </div>
 
-                        <div className="col">
+                        <div className="col me-4">
                             <p><b>Year</b></p>
                             <input
                                 type="number"
@@ -204,10 +202,8 @@ const AddProduct = () => {
                         </div>
                     </div>
 
-                    <div style={{ marginBottom: "20px" }}></div>
-
-                    <div className='row'>
-                        <div className="col">
+                    <div className='row mb-3'> 
+                        <div className="col me-4">
                             <p><b>Category</b></p>
                             <select
                                 value={category}
@@ -287,10 +283,8 @@ const AddProduct = () => {
                         </div>
                     </div>
 
-                    <div style={{ marginBottom: "20px" }}></div>
-
-                    <div className='row'>
-                        <div className="col">
+                    <div className='row mb-3'>
+                        <div className="col me-4">
                             <p><b>Mileage</b></p>
                             <input
                                 type="number"
@@ -327,10 +321,8 @@ const AddProduct = () => {
                         </div>
                     </div>
 
-                    <div style={{ marginBottom: "20px" }}></div>
-
-                    <div className='row'>
-                        <div className="col">
+                    <div className='row mb-3'>
+                        <div className="col me-4">
                             <p><b>Fuel Type</b></p>
                             <select
                                 value={fuelType}
@@ -376,8 +368,6 @@ const AddProduct = () => {
                             {errors.transmission && <p className="error-message" style={{ fontSize: "12px" }}>{errors.transmission}</p>}
                         </div>
                     </div>
-
-                    <div style={{ marginBottom: "20px" }}></div>
 
                     <center><button onClick={addProduct} className="add-product-button" style={{ width: "100%" }}>Add Car</button></center>
                 </div>

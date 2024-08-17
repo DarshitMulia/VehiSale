@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import '../styles/testimonial.css';
 
 const fetchTestimonials = async () => {
   try {

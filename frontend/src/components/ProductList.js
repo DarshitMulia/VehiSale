@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import '../styles/productlist.css';
 
 const ProductList = () => {
     const [products, setProducts] = useState([]);
@@ -144,7 +145,7 @@ const ProductList = () => {
                     <div className="filter-section">
                         <div className="filters-container">
                             <div className="filter">
-                                <label htmlFor="category">Category:</label>
+                                <label htmlFor="category">Category</label>
                                 <select id="category" value={filters.category} onChange={(e) => handleFilterChange('category', e.target.value)}>
                                     <option value="">All</option>
                                     <option value="Hatchback">Hatchback</option>
@@ -159,7 +160,7 @@ const ProductList = () => {
                             </div>
 
                             <div className="filter">
-                                <label htmlFor="priceRange">Price Range:</label>
+                                <label htmlFor="priceRange">Price Range</label>
                                 <select id="priceRange" value={filters.priceRange} onChange={(e) => handleFilterChange('priceRange', e.target.value)}>
                                     <option value="">All</option>
                                     <option value="0-100,000">0 - 100,000</option>
@@ -172,7 +173,7 @@ const ProductList = () => {
                             </div>
 
                             <div className="filter">
-                                <label htmlFor="colors">Colors:</label>
+                                <label htmlFor="colors">Colors</label>
                                 <select id="colors" value={filters.colors} onChange={(e) => handleFilterChange('colors', e.target.value)}>
                                     <option value="">All</option>
                                     <option value="Black">Black</option>
@@ -185,7 +186,7 @@ const ProductList = () => {
                             </div>
 
                             <div className="filter">
-                                <label htmlFor="company">Company:</label>
+                                <label htmlFor="company">Company</label>
                                 <select id="company" value={filters.company} onChange={(e) => handleFilterChange('company', e.target.value)}>
                                     <option value="">All</option>
                                     <option value="Acura">Acura</option>
@@ -239,7 +240,7 @@ const ProductList = () => {
                             </div>
 
                             <div className="filter">
-                                <label htmlFor="transmission">Transmission:</label>
+                                <label htmlFor="transmission">Transmission</label>
                                 <select id="transmission" value={filters.transmission} onChange={(e) => handleFilterChange('transmission', e.target.value)}>
                                     <option value="">All</option>
                                     <option value="Automatic">Automatic</option>
@@ -248,7 +249,7 @@ const ProductList = () => {
                             </div>
 
                             <div className="filter">
-                                <label htmlFor="fuelType">Fuel Type:</label>
+                                <label htmlFor="fuelType">Fuel Type</label>
                                 <select id="fuelType" value={filters.fuelType} onChange={(e) => handleFilterChange('fuelType', e.target.value)}>
                                     <option value="">All</option>
                                     <option value="Petrol">Petrol</option>

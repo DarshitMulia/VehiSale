@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
+import '../styles/admindashboard.css';
+import '../styles/productlist.css';
 
 const AdminDashboard = () => {
     const [products, setProducts] = useState([]);
@@ -90,13 +92,11 @@ const AdminDashboard = () => {
             if (response.ok) {
                 const pendingProduct = pendingProducts.find(product => product._id === id);
 
-                // Verify that the pendingProduct object includes the userId field
                 if (!pendingProduct.userId) {
                     console.error('User ID not found in pending product data.');
                     return;
                 }
 
-                // Create a new product instance using pending product details
                 const newProduct = {
                     name: pendingProduct.name,
                     price: pendingProduct.price,
@@ -111,10 +111,8 @@ const AdminDashboard = () => {
                     userId: pendingProduct.userId
                 };
 
-                // Add the new product to the products list
                 setProducts([...products, newProduct]);
 
-                // Remove the approved product from the pending products list
                 setPendingProducts(pendingProducts.filter(product => product._id !== id));
             } else {
                 const errorMessage = await response.text();
@@ -143,7 +141,6 @@ const AdminDashboard = () => {
             if (response.ok) {
                 const pendingProduct = pendingProducts.find(product => product._id === selectedProductId);
 
-                // Create a new rejected product instance using pending product details
                 const rejectedProduct = {
                     name: pendingProduct.name,
                     price: pendingProduct.price,
@@ -158,13 +155,10 @@ const AdminDashboard = () => {
                     userId: pendingProduct.userId
                 };
 
-                // Add the new rejected product to the rejected products list
                 setRejectedProducts([...rejectedProducts, rejectedProduct]);
 
-                // Remove the rejected product from pending products
                 setPendingProducts(pendingProducts.filter(product => product._id !== selectedProductId));
 
-                // Close the modal and reset the reason
                 setModalIsOpen(false);
                 setRejectionReason('');
                 setSelectedProductId(null);
@@ -268,163 +262,3 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
-
-
-
-
-// import React, { useEffect, useState } from 'react';
-// import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell } from 'recharts';
-
-// const AdminDashboard = () => {
-//     const [pendingProducts, setPendingProducts] = useState([]);
-//     const [approvedProducts, setApprovedProducts] = useState([]);
-//     const [rejectedProducts, setRejectedProducts] = useState([]);
-//     const [testimonials, setTestimonials] = useState([]);
-//     const [loading, setLoading] = useState(true);
-//     const [error, setError] = useState(null);
-
-//     useEffect(() => {
-//         const fetchData = async () => {
-//             try {
-//                 const token = localStorage.getItem('authToken'); // Assumes token is stored in local storage
-
-//                 if (!token) {
-//                     throw new Error("No authentication token found.");
-//                 }
-
-//                 const pendingProductsResponse = await fetch('http://localhost:5000/pending-products', {
-//                     headers: {
-//                         authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
-//                     }
-//                 });
-//                 if (pendingProductsResponse.ok) {
-//                     setPendingProducts(await pendingProductsResponse.json());
-//                 } else {
-//                     throw new Error('Failed to fetch pending products');
-//                 }
-
-//                 const approvedProductsResponse = await fetch('http://localhost:5000/products', {
-//                     headers: {
-//                         authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
-//                     }
-//                 });
-//                 if (approvedProductsResponse.ok) {
-//                     setApprovedProducts(await approvedProductsResponse.json());
-//                 } else {
-//                     throw new Error('Failed to fetch approved products');
-//                 }
-
-//                 const rejectedProductsResponse = await fetch('http://localhost:5000/rejected-products', {
-//                     headers: {
-//                         authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
-//                     }
-//                 });
-//                 if (rejectedProductsResponse.ok) {
-//                     setRejectedProducts(await rejectedProductsResponse.json());
-//                 } else {
-//                     throw new Error('Failed to fetch rejected products');
-//                 }
-
-//                 const testimonialsResponse = await fetch('http://localhost:5000/testimonials', {
-//                     headers: {
-//                         authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
-//                     }
-//                 });
-//                 if (testimonialsResponse.ok) {
-//                     setTestimonials(await testimonialsResponse.json());
-//                 } else {
-//                     throw new Error('Failed to fetch testimonials');
-//                 }
-
-//                 setLoading(false);
-//             } catch (error) {
-//                 console.error('Error fetching data:', error);
-//                 setError(error.message);
-//                 setLoading(false);
-//             }
-//         };
-
-//         fetchData();
-//     }, []);
-
-//     if (loading) {
-//         return <p>Loading...</p>;
-//     }
-
-//     if (error) {
-//         return <p>Error: {error}</p>;
-//     }
-
-//     const pieChartData = [
-//         { name: 'Pending', value: pendingProducts.length },
-//         { name: 'Approved', value: approvedProducts.length },
-//         { name: 'Rejected', value: rejectedProducts.length },
-//     ];
-
-//     const COLORS = ['#0088FE', '#00C49F', '#FF8042'];
-
-//     return (
-//         <div>
-//             <h1>Admin Dashboard</h1>
-
-//             <div style={{ display: 'flex', justifyContent: 'space-around', marginBottom: '20px' }}>
-//                 <BarChart width={600} height={300} data={approvedProducts}>
-//                     <CartesianGrid strokeDasharray="3 3" />
-//                     <XAxis dataKey="name" />
-//                     <YAxis />
-//                     <Tooltip />
-//                     <Legend />
-//                     <Bar dataKey="price" fill="#8884d8" />
-//                 </BarChart>
-
-//                 <PieChart width={400} height={400}>
-//                     <Pie
-//                         data={pieChartData}
-//                         cx={200}
-//                         cy={200}
-//                         labelLine={false}
-//                         label
-//                         outerRadius={80}
-//                         fill="#8884d8"
-//                         dataKey="value"
-//                     >
-//                         {pieChartData.map((entry, index) => (
-//                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-//                         ))}
-//                     </Pie>
-//                     <Tooltip />
-//                 </PieChart>
-//             </div>
-
-//             <h2>Pending Products</h2>
-//             <ul>
-//                 {pendingProducts.map(product => (
-//                     <li key={product._id}>{product.name} - ${product.price}</li>
-//                 ))}
-//             </ul>
-
-//             <h2>Approved Products</h2>
-//             <ul>
-//                 {approvedProducts.map(product => (
-//                     <li key={product._id}>{product.name} - ${product.price}</li>
-//                 ))}
-//             </ul>
-
-//             <h2>Rejected Products</h2>
-//             <ul>
-//                 {rejectedProducts.map(product => (
-//                     <li key={product._id}>{product.name} - ${product.price}</li>
-//                 ))}
-//             </ul>
-
-//             <h2>Testimonials</h2>
-//             <ul>
-//                 {testimonials.map(testimonial => (
-//                     <li key={testimonial._id}>{testimonial.name}: {testimonial.text}</li>
-//                 ))}
-//             </ul>
-//         </div>
-//     );
-// };
-
-// export default AdminDashboard;

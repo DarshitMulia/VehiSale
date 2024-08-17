@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import Modal from 'react-modal';
-
+import '../styles/userprofile.css';
 
 const UserProfile = () => {
     const [user, setUser] = useState(null);

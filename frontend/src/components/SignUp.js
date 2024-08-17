@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import '../styles/signuplogin.css';
 
 const SignUp = () => {
     const navigate = useNavigate();
@@ -78,16 +79,16 @@ const SignUp = () => {
 
     return (
         <div className='centered-element'>
-            <div className='login-container'>
-                <div className='login-content'>
+            <div className='signuplogin-container'>
+                <div className='signuplogin-content'>
                     <div className='welcome-text'>
                         <h3>Welcome to the <span className='highlight'>World of Cars!</span></h3>
                     </div>
-                    <div className='login-form-container'>
-                        <div className='signup-image'>
+                    <div className='signuplogin-form-container'>
+                        <div className='signuplogin-image'>
                             <img src='./images/logincars.webp' alt='img' />
                         </div>
-                        <div className='signup-form'>
+                        <div className='signuplogin-form'>
                             <h1>Sign up</h1>
                             <div className='form-group'>
                                 <input
@@ -118,10 +119,10 @@ const SignUp = () => {
                             </div>
 
                             <center>
-                                <button className='login-button' onClick={collectData}>Sign up</button>
+                                <button className='signuplogin-button' onClick={collectData}>Sign up</button>
                             </center>
 
-                            <div className='login-link'>
+                            <div className='signuplogin-link'>
                                 <p style={{marginRight:"10px"}}>Already a User?</p>
                                 <Link to="/login">Login</Link>
                             </div>
