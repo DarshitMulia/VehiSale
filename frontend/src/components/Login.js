@@ -6,6 +6,7 @@ const Login = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState({ email: '', password: '' });
     const [showPopup, setShowPopup] = useState(false);
 
@@ -82,6 +83,12 @@ const Login = () => {
         }
     };
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            handleLogin();
+        }
+    };
+
     return (
         <div className="centered-element">
             <div className="signuplogin-container">
@@ -93,7 +100,7 @@ const Login = () => {
                     </div>
                     <div className="signuplogin-form-container">
                         <div className="signuplogin-image">
-                            <img src="./images/logincars.webp" alt="img" />
+                            <img src="./images/signuplogincar.webp" alt="img" />
                         </div>
                         <div className="signuplogin-form">
                             <h1>Login</h1>
@@ -102,16 +109,26 @@ const Login = () => {
                                     type="email" 
                                     placeholder="Enter Email" 
                                     value={email} 
-                                    onChange={(e) => setEmail(e.target.value)} />
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    onKeyDown={handleKeyDown} />
                                 {error.email && <p style={{ color: 'red', fontSize: '12px' }}>{error.email}</p>}
                             </div>
                             <div className="form-group">
-                                <input
-                                    type="password"
-                                    placeholder="Enter Password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
+                                <div className='password-container'>
+                                    <input
+                                        type={showPassword ? "text" : "password"}
+                                        placeholder="Enter Password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        onKeyDown={handleKeyDown}
+                                    />
+                                    <span
+                                        className='password-toggle'
+                                        onClick={() => setShowPassword(!showPassword)}
+                                    >
+                                        {showPassword ? '👁️' : '🙈'}
+                                    </span>
+                                </div>
                                 {error.password && <p style={{ color: 'red', fontSize: '12px' }}>{error.password}</p>}
                             </div>
                             <center>

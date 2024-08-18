@@ -7,6 +7,7 @@ const SignUp = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
     const [showPopup, setShowPopup] = useState(false);
 
@@ -77,6 +78,12 @@ const SignUp = () => {
         }
     };
 
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            collectData();
+        }
+    };
+
     return (
         <div className='centered-element'>
             <div className='signuplogin-container'>
@@ -86,7 +93,7 @@ const SignUp = () => {
                     </div>
                     <div className='signuplogin-form-container'>
                         <div className='signuplogin-image'>
-                            <img src='./images/logincars.webp' alt='img' />
+                            <img src='./images/signuplogincar.webp' alt='img' />
                         </div>
                         <div className='signuplogin-form'>
                             <h1>Sign up</h1>
@@ -109,12 +116,21 @@ const SignUp = () => {
                                 {errors.email && <p style={{ color: 'red', fontSize: '12px' }}>{errors.email}</p>}
                             </div>
                             <div className='form-group'>
-                                <input
-                                    type="password"
-                                    placeholder="Enter Password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
+                                <div className='password-container'>
+                                    <input
+                                        type={showPassword ? "text" : "password"}
+                                        placeholder="Enter Password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        onKeyDown={handleKeyDown}
+                                    />
+                                    <span
+                                        className='password-toggle'
+                                        onClick={() => setShowPassword(!showPassword)}
+                                    >
+                                        {showPassword ? '👁️' : '🙈'}
+                                    </span>
+                                </div>
                                 {errors.password && <p style={{ color: 'red', fontSize: '12px' }}>{errors.password}</p>}
                             </div>
 
@@ -123,7 +139,7 @@ const SignUp = () => {
                             </center>
 
                             <div className='signuplogin-link'>
-                                <p style={{marginRight:"10px"}}>Already a User?</p>
+                                <p style={{ marginRight: "10px" }}>Already a User?</p>
                                 <Link to="/login">Login</Link>
                             </div>
                         </div>
