@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer');
-const Razorpay = require('razorpay');
 const bodyParser = require('body-parser');
 const User = require('./db/User');
 const Product = require('./db/Product');
@@ -100,22 +99,17 @@ app.post('/login', async (req, res) => {
 // Middleware function to check if the user has admin privileges
 const checkAdmin = async (req, res, next) => {
     try {
-        const token = req.headers.authorization.split(' ')[1]; // Extract token from the "Bearer" format
-        if (!token) {
-            return res.status(403).send('Access denied. No token provided.'); // Token not provided
-        }
-
-        const decodedToken = jwt.verify(token, 'vehisale'); // Verify the token
-        const user = await User.findById(decodedToken.userId); // Find the user by ID from the token payload
-
-        if (user && user.isAdmin) { // Check if the user is an admin
-            req.user = user; // Store user data in the request
-            next(); // Proceed to the next middleware or route handler
+        const user = await User.findById(req.valid.user._id);
+        console.log("Fetched user:", user); // Log fetched user
+        if (user && user.isAdmin) {
+            req.user = user;
+            next();
         } else {
-            res.status(403).send('Access denied. Only admins can access this route.'); // Access denied for non-admins
+            res.status(403).send('Access denied. Only admins can access this route.');
         }
     } catch (error) {
-        res.status(403).send('Access denied.'); // Handle token verification errors
+        console.error('Error in checkAdmin:', error); // Log error
+        res.status(403).send('Access denied.');
     }
 };
 
@@ -127,8 +121,78 @@ const checkAdmin = async (req, res, next) => {
 
 // --------------------------------------Admin Dashboard Route--------------------------------------
 // Route to handle admin dashboard access, protected by checkAdmin middleware
-app.get('/admindashboard', checkAdmin, (req, res) => {
-    res.send('Welcome to the admin dashboard'); // Respond with a welcome message
+app.get('/admindashboard', verifyToken, checkAdmin, async (req, res) => {
+    try {
+        // Get counts and data
+        const users = await User.find().select('-password'); // Exclude password for security
+        const userCount = users.length;
+
+        const pendingProducts = await PendingProduct.find();
+        const pendingProductCount = pendingProducts.length;
+
+        const products = await Product.find();
+        const productCount = products.length;
+
+        const rejectedProducts = await RejectedProduct.find();
+        const rejectedProductCount = rejectedProducts.length;
+
+        const testimonials = await Testimonial.find();
+        const testimonialCount = testimonials.length;
+
+        // Aggregate data for trends and summaries
+        const recentUsers = await User.find().sort({ createdAt: -1 }).limit(5); // Last 5 registered users
+        const recentPendingProducts = await PendingProduct.find().sort({ createdAt: -1 }).limit(5); // Last 5 pending products
+        const recentApprovedProducts = await Product.find().sort({ createdAt: -1 }).limit(5); // Last 5 approved products
+        const recentRejectedProducts = await RejectedProduct.find().sort({ createdAt: -1 }).limit(5); // Last 5 rejected products
+        const recentTestimonials = await Testimonial.find().sort({ createdAt: -1 }).limit(5); // Last 5 testimonials
+
+        // Summarize product distribution by category
+        const productCategorySummary = await Product.aggregate([
+            { $group: { _id: "$category", count: { $sum: 1 } } }
+        ]);
+
+        // Summarize product distribution by company
+        const productCompanySummary = await Product.aggregate([
+            { $group: { _id: "$company", count: { $sum: 1 } } }
+        ]);
+
+        // Summarize product distribution by fuel type
+        const productFuelTypeSummary = await Product.aggregate([
+            { $group: { _id: "$fuelType", count: { $sum: 1 } } }
+        ]);
+
+        // Summarize product distribution by transmission
+        const productTransmissionSummary = await Product.aggregate([
+            { $group: { _id: "$transmission", count: { $sum: 1 } } }
+        ]);
+
+        const dashboardData = {
+            userCount,
+            users,
+            pendingProductCount,
+            pendingProducts,
+            productCount,
+            products,
+            rejectedProductCount,
+            rejectedProducts,
+            testimonialCount,
+            testimonials,
+            recentUsers,
+            recentPendingProducts,
+            recentApprovedProducts,
+            recentRejectedProducts,
+            recentTestimonials,
+            productCategorySummary,
+            productCompanySummary,
+            productFuelTypeSummary,
+            productTransmissionSummary,
+        };
+
+        res.status(200).json(dashboardData);
+    } catch (error) {
+        console.error('Error fetching admin dashboard data:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
 
 
@@ -246,7 +310,7 @@ app.put('/pending-products/approve-reject/:id', verifyToken, async (req, res) =>
                 transmission: pendingProduct.transmission,
                 fuelType: pendingProduct.fuelType,
                 userId: pendingProduct.userId,
-                reason: reason 
+                reason: reason
             });
             await rejectedProduct.save(); // Save the rejected product to the RejectedProduct collection
             await PendingProduct.findByIdAndDelete(id); // Remove the product from the PendingProduct collection
@@ -491,7 +555,7 @@ app.post('/testimonials', verifyToken, async (req, res) => {
 app.get('/testimonials', verifyToken, async (req, res) => {
     try {
         const testimonials = await Testimonial.find();
-        
+
         // Handle case where no testimonials are found
         if (!testimonials || testimonials.length === 0) {
             return res.status(404).json({ error: 'No testimonials found' });
