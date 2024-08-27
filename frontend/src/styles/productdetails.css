@@ -92,7 +92,7 @@
 
 .buy-now-button {
     padding: 12px 25px;
-    background-color: #27ae60;
+    background-color: #4caf50;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -102,7 +102,7 @@
 }
 
 .buy-now-button:hover {
-    background-color: #2ecc71;
+    background-color: darkgreen;
 }
 
 @media screen and (max-width: 1024px) {
