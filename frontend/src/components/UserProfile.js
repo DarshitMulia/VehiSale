@@ -120,7 +120,7 @@ const UserProfile = () => {
                                                 <tr>
                                                     <td><p>Price</p></td>
                                                     <td>:</td>
-                                                    <td>₹ {item.price}</td>
+                                                    <td> ₹{item.price}</td>
                                                 </tr>
                                                 <tr>
                                                     <td><p>year</p></td>
@@ -150,7 +150,7 @@ const UserProfile = () => {
                                                 <tr>
                                                     <td><p>Price</p></td>
                                                     <td>:</td>
-                                                    <td>₹ {item.price}</td>
+                                                    <td>₹{item.price}</td>
                                                 </tr>
                                                 <tr>
                                                     <td><p>year</p></td>
@@ -237,8 +237,6 @@ const UserProfile = () => {
                 )}
             </div>
         </div>
-
-
     );
 };
 
