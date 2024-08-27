@@ -12,6 +12,7 @@ import Header from './components/Header';
 import AdminDashboard from './components/AdminDashboard';
 import Testimonial from './components/Testimonial';
 import ProductDetails from './components/ProductDetails';
+import PendingProducts from './components/PendingProducts';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path='/testimonials' element={<Testimonial />} />
           <Route path='/logout' element={<h1>Logout Component</h1>} />
           <Route path='/admindashboard' element={<AdminDashboard />} />
+          <Route path='/pendingproducts' element={<PendingProducts />} />
         </Route>
         <Route path='/signup' element={<SignUp />} />
         <Route path='/login' element={<Login />} />
