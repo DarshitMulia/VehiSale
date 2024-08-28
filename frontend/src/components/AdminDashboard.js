@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import Modal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
+import {
+    Card, Grid, Typography, CircularProgress, Box, Avatar, Table, TableBody,
+    TableCell, TableContainer, TableHead, TableRow, Paper, LinearProgress, Pagination
+} from '@mui/material';
+import {
+    PieChart, Pie, Tooltip, Cell, Legend, ResponsiveContainer
+} from 'recharts';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import InventoryIcon from '@mui/icons-material/Inventory';
+import PendingIcon from '@mui/icons-material/HourglassEmpty';
+import CancelIcon from '@mui/icons-material/Cancel';
 import '../styles/admindashboard.css';
-import '../styles/productlist.css';
 
 const AdminDashboard = () => {
-    const [products, setProducts] = useState([]);
-    const [pendingProducts, setPendingProducts] = useState([]);
-    const [rejectedProducts, setRejectedProducts] = useState([]);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [rejectionReason, setRejectionReason] = useState('');
-    const [selectedProductId, setSelectedProductId] = useState(null);
+    const [dashboardData, setDashboardData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [page, setPage] = useState(1);
+    const itemsPerPage = 5;
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -30,8 +39,6 @@ const AdminDashboard = () => {
 
     useEffect(() => {
         refreshPageOnce();
-        getProducts();
-        getPendingProducts();
     }, []);
 
     useEffect(() => {
@@ -40,223 +47,188 @@ const AdminDashboard = () => {
         };
     }, []);
 
-    const getProducts = async () => {
-        try {
-            const response = await fetch('http://localhost:5000/products', {
-                headers: {
-                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
-                }
-            });
-            if (response.ok) {
-                const data = await response.json();
-                setProducts(data);
-            } else {
-                console.error('Failed to fetch products');
-            }
-        } catch (error) {
-            console.error('Error fetching products:', error);
-        }
-    };
+    useEffect(() => {
+        const fetchDashboardData = async () => {
+            try {
+                let response = await fetch('http://localhost:5000/admindashboard', {
+                    headers: {
+                        authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
+                    }
+                });
 
-    const getPendingProducts = async () => {
-        try {
-            const response = await fetch('http://localhost:5000/pending-products', {
-                headers: {
-                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
-                }
-            });
-            if (response.ok) {
-                const data = await response.json();
-                setPendingProducts(data);
-            } else {
-                console.error('Failed to fetch pending products');
-            }
-        } catch (error) {
-            console.error('Error fetching pending products:', error);
-        }
-    };
+                const text = await response.text();
 
-    const approveProduct = async (id) => {
-        try {
-            const token = JSON.parse(localStorage.getItem('token'));
-
-            const response = await fetch(`http://localhost:5000/pending-products/approve-reject/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'authorization': `bearer ${token}`
-                },
-                body: JSON.stringify({ action: 'approve' })
-            });
-
-            if (response.ok) {
-                const pendingProduct = pendingProducts.find(product => product._id === id);
-
-                if (!pendingProduct.userId) {
-                    console.error('User ID not found in pending product data.');
-                    return;
+                if (!response.ok) {
+                    throw new Error('Failed to fetch dashboard data');
                 }
 
-                const newProduct = {
-                    name: pendingProduct.name,
-                    price: pendingProduct.price,
-                    category: pendingProduct.category,
-                    company: pendingProduct.company,
-                    image: pendingProduct.image,
-                    year: pendingProduct.year,
-                    mileage: pendingProduct.mileage,
-                    color: pendingProduct.color,
-                    transmission: pendingProduct.transmission,
-                    fuelType: pendingProduct.fuelType,
-                    userId: pendingProduct.userId
-                };
-
-                setProducts([...products, newProduct]);
-
-                setPendingProducts(pendingProducts.filter(product => product._id !== id));
-            } else {
-                const errorMessage = await response.text();
-                console.error('Failed to approve product:', errorMessage);
+                const result = JSON.parse(text);
+                setDashboardData(result);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error:', error);
+                setError(error.message);
+                setLoading(false);
             }
-        } catch (error) {
-            console.error('Error approving product:', error);
-        }
-    };
+        };
 
-    const handleRejectClick = (id) => {
-        setSelectedProductId(id);
-        setModalIsOpen(true);
-    };
+        fetchDashboardData();
+    }, []);
 
-    const rejectProduct = async () => {
-        try {
-            const response = await fetch(`http://localhost:5000/pending-products/approve-reject/${selectedProductId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
-                },
-                body: JSON.stringify({ action: 'reject', reason: rejectionReason })
-            });
-            if (response.ok) {
-                const pendingProduct = pendingProducts.find(product => product._id === selectedProductId);
+    if (loading) {
+        return <Box className="dashboard-loading"><CircularProgress /></Box>;
+    }
 
-                const rejectedProduct = {
-                    name: pendingProduct.name,
-                    price: pendingProduct.price,
-                    category: pendingProduct.category,
-                    company: pendingProduct.company,
-                    image: pendingProduct.image,
-                    year: pendingProduct.year,
-                    mileage: pendingProduct.mileage,
-                    color: pendingProduct.color,
-                    transmission: pendingProduct.transmission,
-                    fuelType: pendingProduct.fuelType,
-                    userId: pendingProduct.userId
-                };
+    if (error) {
+        return <Typography variant="h6" color="error" className="dashboard-error">Error: {error}</Typography>;
+    }
 
-                setRejectedProducts([...rejectedProducts, rejectedProduct]);
+    const { userCount, pendingProductCount, productCount, rejectedProductCount, users } = dashboardData;
 
-                setPendingProducts(pendingProducts.filter(product => product._id !== selectedProductId));
+    const pieData = [
+        { name: 'Approved', value: productCount, color: '#4caf50' },
+        { name: 'Pending', value: pendingProductCount, color: '#ff9800' },
+        { name: 'Rejected', value: rejectedProductCount, color: '#f44336' },
+    ];
 
-                setModalIsOpen(false);
-                setRejectionReason('');
-                setSelectedProductId(null);
-            } else {
-                console.error('Failed to reject product');
-            }
-        } catch (error) {
-            console.error('Error rejecting product:', error);
-        }
+    // Pagination logic
+    const indexOfLastItem = page * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentUsers = users.slice(indexOfFirstItem, indexOfLastItem);
+
+    const handlePageChange = (event, value) => {
+        setPage(value);
     };
 
     return (
-        <div className="product-list-container">
-            <div style={{ backgroundColor: "#f1f1f1", padding: "20px" }}>
-                <center><h1 style={{ color: "#434343" }}>Pending Car Requests</h1></center>
+        <div style={{ backgroundColor: "#f1f1f1" }}>
+            <Box className="dashboard-container">
+                <center><h1 style={{ color: "#434343" }}>Dashboard</h1></center>
                 <div className="border"></div>
-                <div className="product-cards">
-                    {pendingProducts.length > 0 ? (
-                        pendingProducts.map((item, index) => (
-                            <div key={item._id} className="product-card">
-                                <div className="product-image">
-                                    <img src={`data:image/jpeg;base64,${item.image}`} alt={item.name} />
-                                </div>
-                                <div className="product-details-first-line">
-                                    <h4>{item.name}</h4>
-                                    <p>{item.company}</p>
-                                    <p>{item.year}</p>
-                                </div>
-                                <div className="product-details">
-                                    <table>
-                                        <tr>
-                                            <td><strong>Category</strong></td>
-                                            <td>:</td>
-                                            <td> {item.category}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Mileage</strong></td>
-                                            <td>:</td>
-                                            <td> {item.mileage}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Color</strong></td>
-                                            <td>:</td>
-                                            <td> {item.color}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Transmission</strong></td>
-                                            <td>:</td>
-                                            <td> {item.transmission}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Fuel Type</strong></td>
-                                            <td>:</td>
-                                            <td> {item.fuelType}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Price</strong></td>
-                                            <td>:</td>
-                                            <td> ₹ {item.price}</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div className="product-actions">
-                                    <button className="reject-btn" onClick={() => handleRejectClick(item._id)}>REJECT</button>
-                                    <button className="approve-btn" onClick={() => approveProduct(item._id)}>APPROVE</button>
+                <Grid container spacing={4}>
+
+                    <Grid item xs={12} md={3}>
+                        <Card className="dashboard-card">
+                            <div className="dashboard-content">
+                                <Avatar className="dashboard-avatar" style={{ backgroundColor: '#3f51b5' }}>
+                                    <AccountCircleIcon />
+                                </Avatar>
+                                <div className="dashboard-text">
+                                    <Typography variant="body1">Users</Typography>
+                                    <Typography variant="h4">{userCount}</Typography>
+                                    <LinearProgress variant="determinate" value={(userCount % 100)} className="dashboard-progress" />
                                 </div>
                             </div>
-                        ))
-                    ) : (
-                        <p className="no-result-admin">No Result Found</p>
-                    )}
-                </div>
+                        </Card>
+                    </Grid>
 
-                <Modal
-                    isOpen={modalIsOpen}
-                    onRequestClose={() => setModalIsOpen(false)}
-                    className={{
-                        base: 'reject-product-modal',
-                        afterOpen: 'reject-product-modal-open',
-                        beforeClose: 'reject-product-modal-close'
-                    }}
-                    closeTimeoutMS={300}
-                >
-                    <div className="modal-content">
-                        <h2 className="modal-header">Reject Product</h2>
-                        <textarea
-                            className="modal-textarea"
-                            value={rejectionReason}
-                            onChange={(e) => setRejectionReason(e.target.value)}
-                            placeholder="Enter reason for rejection"
-                        />
-                        <div className="modal-buttons">
-                            <button className="modal-cancel-button" onClick={() => setModalIsOpen(false)}>Cancel</button>
-                            <button className="modal-submit-button" onClick={rejectProduct}>Submit</button>
-                        </div>
-                    </div>
-                </Modal>
-            </div>
+                    <Grid item xs={12} md={3}>
+                        <Card className="dashboard-card">
+                            <div className="dashboard-content">
+                                <Avatar className="dashboard-avatar" style={{ backgroundColor: '#4caf50' }}>
+                                    <InventoryIcon />
+                                </Avatar>
+                                <div className="dashboard-text">
+                                    <Typography variant="body1">Cars</Typography>
+                                    <Typography variant="h4">{productCount}</Typography>
+                                    <LinearProgress variant="determinate" value={(productCount % 100)} className="dashboard-progress" />
+                                </div>
+                            </div>
+                        </Card>
+                    </Grid>
+
+                    <Grid item xs={12} md={3}>
+                        <Card className="dashboard-card">
+                            <div className="dashboard-content">
+                                <Avatar className="dashboard-avatar" style={{ backgroundColor: '#ff9800' }}>
+                                    <PendingIcon />
+                                </Avatar>
+                                <div className="dashboard-text">
+                                    <Typography variant="body1">Pending Cars</Typography>
+                                    <Typography variant="h4">{pendingProductCount}</Typography>
+                                    <LinearProgress variant="determinate" value={(pendingProductCount % 100)} className="dashboard-progress" />
+                                </div>
+                            </div>
+                        </Card>
+                    </Grid>
+
+                    <Grid item xs={12} md={3}>
+                        <Card className="dashboard-card">
+                            <div className="dashboard-content">
+                                <Avatar className="dashboard-avatar" style={{ backgroundColor: '#f44336' }}>
+                                    <CancelIcon />
+                                </Avatar>
+                                <div className="dashboard-text">
+                                    <Typography variant="body1">Rejected Cars</Typography>
+                                    <Typography variant="h4">{rejectedProductCount}</Typography>
+                                    <LinearProgress variant="determinate" value={(rejectedProductCount % 100)} className="dashboard-progress" />
+                                </div>
+                            </div>
+                        </Card>
+                    </Grid>
+
+                    <Grid item xs={12} md={8}>
+                        <Card className="dashboard-list-card shadow-sm">
+                            <Typography variant="h6" align="center" gutterBottom>
+                                User List
+                            </Typography>
+                            <TableContainer component={Paper} className="table-responsive">
+                                <Table className="table table-hover table-striped">
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell align="center" className="fw-bold">Name</TableCell>
+                                            <TableCell align="center" className="fw-bold">Email</TableCell>
+                                            <TableCell align="center" className="fw-bold">Account Created</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {currentUsers.map((user) => (
+                                            <TableRow key={user.id}>
+                                                <TableCell align="center">{user.name}</TableCell>
+                                                <TableCell align="center">{user.email}</TableCell>
+                                                <TableCell align="center">{user.createdAt}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                            <Pagination
+                                count={Math.ceil(users.length / itemsPerPage)}
+                                page={page}
+                                onChange={handlePageChange}
+                                variant="outlined"
+                                shape="rounded"
+                                className="mt-3 d-flex justify-content-center"
+                            />
+                        </Card>
+                    </Grid>
+
+                    <Grid item xs={12} md={4}>
+                        <Card className="dashboard-chart-card">
+                            <Typography variant="h6" align="center">Product Distribution</Typography>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <PieChart>
+                                    <Pie
+                                        data={pieData}
+                                        dataKey="value"
+                                        outerRadius={80}
+                                        fill="#8884d8"
+                                        label
+                                        labelLine={false}
+                                    >
+                                        {pieData.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={entry.color} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip />
+                                    <Legend verticalAlign="bottom" height={36} iconType="circle"/>
+                                </PieChart>
+                            </ResponsiveContainer>
+                        </Card>
+                    </Grid>
+
+                </Grid>
+            </Box>
         </div>
     );
 };
