@@ -107,8 +107,9 @@ const Testimonial = () => {
 
         <div className="row testimonial-row">
           {testimonials.map((testimonial, index) => (
-            <div className="col" key={index}>
+            <div className="col" key={index} style={{ '--i': index }}>
               <div className="testimonial">
+              <span>{testimonial.addedAt}</span>
                 <img
                   src="https://img.freepik.com/premium-vector/man-profile-cartoon_18591-58482.jpg"
                   alt="Profile"
