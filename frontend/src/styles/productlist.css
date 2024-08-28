@@ -319,52 +319,6 @@
     color: #555;
 }
 
-.product-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.approve-btn,
-.reject-btn,
-.delete-btn,
-.edit-btn {
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    color: #fff;
-    background-color: #007bff;
-    transition: background-color 0.3s ease;
-}
-
-.approve-btn {
-    background-color: #4caf50;
-}
-
-.approve-btn:hover {
-    background-color: darkgreen;
-}
-
-.reject-btn {
-    background-color: #dc3545;
-}
-
-.delete-btn {
-    background-color: #dc3545;
-}
-
-.reject-btn:hover,
-.delete-btn:hover {
-    background-color: darkred;
-}
-
-.approve-btn:hover,
-.edit-btn:hover {
-    background-color: darkgreen;
-}
-
 @media (max-width: 768px) {
     .search-input {
         width: auto;
