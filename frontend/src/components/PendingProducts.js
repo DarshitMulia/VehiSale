@@ -7,7 +7,6 @@ const PendingProducts = () => {
     const [products, setProducts] = useState([]);
     const [pendingProducts, setPendingProducts] = useState([]);
     const [rejectedProducts, setRejectedProducts] = useState([]);
-    // const [modalIsOpen, setModalIsOpen] = useState(false);
     const [rejectModalIsOpen, setRejectModalIsOpen] = useState(false);
     const [acceptModalIsOpen, setAcceptModalIsOpen] = useState(false);
     const [rejectionReason, setRejectionReason] = useState('');
@@ -109,11 +108,6 @@ const PendingProducts = () => {
         }
     };
 
-    // const handleRejectClick = (id) => {
-    //     setSelectedProductId(id);
-    //     setModalIsOpen(true);
-    // };
-
     const handleRejectClick = (id) => {
         setSelectedProductId(id);
         setRejectModalIsOpen(true);
@@ -150,10 +144,6 @@ const PendingProducts = () => {
 
                 setPendingProducts(pendingProducts.filter(product => product._id !== selectedProductId));
 
-                // setModalIsOpen(false);
-                // setRejectionReason('');
-                // setSelectedProductId(null);
-
                 setRejectModalIsOpen(false);
                 setRejectionReason('');
                 setSelectedProductId(null);
@@ -166,137 +156,110 @@ const PendingProducts = () => {
     };
 
     return (
-        <div className="product-list-container">
-            <div style={{ backgroundColor: "#f1f1f1", padding: "20px" }}>
-                <center><h1 style={{ color: "#434343" }}>Pending Car Requests</h1></center>
-                <div className="border"></div>
-                <div className="product-cards">
-                    {pendingProducts.length > 0 ? (
-                        pendingProducts.map((item, index) => (
-                            <div key={item._id} className="product-card">
-                                <div className="product-image">
-                                    <img src={`data:image/jpeg;base64,${item.image}`} alt={item.name} />
-                                </div>
-                                <div className="product-details-first-line">
-                                    <h4>{item.name}</h4>
-                                    <p>{item.company}</p>
-                                    <p>{item.year}</p>
-                                </div>
-                                <div className="product-details">
-                                    <table>
-                                        <tr>
-                                            <td><strong>Category</strong></td>
-                                            <td>:</td>
-                                            <td> {item.category}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Mileage</strong></td>
-                                            <td>:</td>
-                                            <td> {item.mileage}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Color</strong></td>
-                                            <td>:</td>
-                                            <td> {item.color}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Transmission</strong></td>
-                                            <td>:</td>
-                                            <td> {item.transmission}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Fuel Type</strong></td>
-                                            <td>:</td>
-                                            <td> {item.fuelType}</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Price</strong></td>
-                                            <td>:</td>
-                                            <td> ₹ {item.price}</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div className="product-actions">
-                                    <button className="reject-btn" onClick={() => handleRejectClick(item._id)}>REJECT</button>
-                                    <button className="approve-btn" onClick={() => handleApproveClick(item._id)}>APPROVE</button>
-                                </div>
+        <div className='main-container'>
+            <center><h1 style={{ color: "#434343" }}>Pending Car Requests</h1></center>
+            <div className="border"></div>
+            <div className="product-cards">
+                {pendingProducts.length > 0 ? (
+                    pendingProducts.map((item, index) => (
+                        <div key={item._id} className="product-card">
+                            <div className="product-image">
+                                <img src={`data:image/jpeg;base64,${item.image}`} alt={item.name} />
                             </div>
-                        ))
-                    ) : (
-                        <p className="no-result">No Result Found</p>
-                    )}
-                </div>
-
-                {/* <Modal
-                    isOpen={modalIsOpen}
-                    onRequestClose={() => setModalIsOpen(false)}
-                    className={{
-                        base: 'reject-product-modal',
-                        afterOpen: 'reject-product-modal-open',
-                        beforeClose: 'reject-product-modal-close'
-                    }}
-                    closeTimeoutMS={300}
-                >
-                    <div className="modal-content">
-                        <h2 className="modal-header">Reject Product</h2>
-                        <textarea
-                            className="modal-textarea"
-                            value={rejectionReason}
-                            onChange={(e) => setRejectionReason(e.target.value)}
-                            placeholder="Enter reason for rejection"
-                        />
-                        <div className="modal-buttons">
-                            <button className="modal-cancel-button" onClick={() => setModalIsOpen(false)}>Cancel</button>
-                            <button className="modal-submit-button" onClick={rejectProduct}>Submit</button>
+                            <div className="product-details-first-line">
+                                <h4>{item.name}</h4>
+                                <p>{item.company}</p>
+                                <p>{item.year}</p>
+                            </div>
+                            <div className="product-details">
+                                <table>
+                                    <tr>
+                                        <td><strong>Category</strong></td>
+                                        <td>:</td>
+                                        <td> {item.category}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Mileage</strong></td>
+                                        <td>:</td>
+                                        <td> {item.mileage}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Color</strong></td>
+                                        <td>:</td>
+                                        <td> {item.color}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Transmission</strong></td>
+                                        <td>:</td>
+                                        <td> {item.transmission}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Fuel Type</strong></td>
+                                        <td>:</td>
+                                        <td> {item.fuelType}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Price</strong></td>
+                                        <td>:</td>
+                                        <td> ₹ {item.price}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div className="product-actions">
+                                <button className="reject-btn" onClick={() => handleRejectClick(item._id)}>REJECT</button>
+                                <button className="approve-btn" onClick={() => handleApproveClick(item._id)}>APPROVE</button>
+                            </div>
                         </div>
-                    </div>
-                </Modal> */}
-
-                <Modal
-                    isOpen={rejectModalIsOpen}
-                    onRequestClose={() => setRejectModalIsOpen(false)}
-                    className={{
-                        base: 'accept-reject-product-modal',
-                        afterOpen: 'accept-reject-product-modal-open',
-                        beforeClose: 'accept-reject-product-modal-close'
-                    }}
-                    closeTimeoutMS={300}
-                >
-                    <div className="modal-content">
-                        <h2 className="modal-header">Reject Product</h2>
-                        <textarea
-                            className="modal-textarea"
-                            value={rejectionReason}
-                            onChange={(e) => setRejectionReason(e.target.value)}
-                            placeholder="Enter reason for rejection"
-                        />
-                        <div className="modal-buttons">
-                            <button className="modal-cancel-button" onClick={() => setRejectModalIsOpen(false)}>Cancel</button>
-                            <button className="modal-submit-button" onClick={rejectProduct}>Submit</button>
-                        </div>
-                    </div>
-                </Modal>
-
-                <Modal
-                    isOpen={acceptModalIsOpen} 
-                    onRequestClose={() => setAcceptModalIsOpen(false)}
-                    className={{
-                        base: 'accept-reject-product-modal',
-                        afterOpen: 'accept-reject-product-modal-open',
-                        beforeClose: 'accept-reject-product-modal-close'
-                    }}
-                    closeTimeoutMS={300}
-                >
-                    <div className="modal-content">
-                        <h2 className="modal-header">Approve Product</h2>
-                        <p>Are you sure you want to accept?</p>
-                        <div className="modal-buttons">
-                            <button className="modal-cancel-button" onClick={() => setAcceptModalIsOpen(false)}>No</button>
-                            <button className="modal-submit-button" onClick={approveProduct}>Yes</button>
-                        </div>
-                    </div>
-                </Modal>
+                    ))
+                ) : (
+                    <p className="no-result">No Result Found</p>
+                )}
             </div>
+
+            <Modal
+                isOpen={rejectModalIsOpen}
+                onRequestClose={() => setRejectModalIsOpen(false)}
+                className={{
+                    base: 'accept-reject-product-modal',
+                    afterOpen: 'accept-reject-product-modal-open',
+                    beforeClose: 'accept-reject-product-modal-close'
+                }}
+                closeTimeoutMS={300}
+            >
+                <div className="modal-content">
+                    <h2 className="modal-header">Reject Product</h2>
+                    <textarea
+                        className="modal-textarea"
+                        value={rejectionReason}
+                        onChange={(e) => setRejectionReason(e.target.value)}
+                        placeholder="Enter reason for rejection"
+                    />
+                    <div className="modal-buttons">
+                        <button className="modal-cancel-button" onClick={() => setRejectModalIsOpen(false)}>Cancel</button>
+                        <button className="modal-submit-button" onClick={rejectProduct}>Submit</button>
+                    </div>
+                </div>
+            </Modal>
+
+            <Modal
+                isOpen={acceptModalIsOpen}
+                onRequestClose={() => setAcceptModalIsOpen(false)}
+                className={{
+                    base: 'accept-reject-product-modal',
+                    afterOpen: 'accept-reject-product-modal-open',
+                    beforeClose: 'accept-reject-product-modal-close'
+                }}
+                closeTimeoutMS={300}
+            >
+                <div className="modal-content">
+                    <h2 className="modal-header">Approve Product</h2>
+                    <p>Are you sure you want to accept?</p>
+                    <div className="modal-buttons">
+                        <button className="modal-cancel-button" onClick={() => setAcceptModalIsOpen(false)}>No</button>
+                        <button className="modal-submit-button" onClick={approveProduct}>Yes</button>
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 };
