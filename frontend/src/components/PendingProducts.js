@@ -291,7 +291,7 @@ const PendingProducts = () => {
                         <h2 className="modal-header">Approve Product</h2>
                         <p>Are you sure you want to accept?</p>
                         <div className="modal-buttons">
-                            <button className="modal-cancel-button" onClick={() => setAcceptModalIsOpen(false)}>Cancel</button>
+                            <button className="modal-cancel-button" onClick={() => setAcceptModalIsOpen(false)}>No</button>
                             <button className="modal-submit-button" onClick={approveProduct}>Yes</button>
                         </div>
                     </div>
