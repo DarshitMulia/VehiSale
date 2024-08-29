@@ -8,6 +8,7 @@
 .main-container-user-profile {
     background-color: #f1f1f1;
     padding: 20px;
+    min-height: 88.6vh;
 }
 
 .user-profile-container {

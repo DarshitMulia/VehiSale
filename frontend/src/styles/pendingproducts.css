@@ -1,3 +1,9 @@
+.main-container {
+    background-color: #f1f1f1;
+    padding: 20px;
+    min-height: 88.6vh;
+}
+
 .product-actions {
     display: flex;
     justify-content: space-between;
