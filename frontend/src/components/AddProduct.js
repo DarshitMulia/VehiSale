@@ -202,7 +202,7 @@ const AddProduct = () => {
                         </div>
                     </div>
 
-                    <div className='row mb-3'> 
+                    <div className='row mb-3'>
                         <div className="col me-4">
                             <p><b>Category</b></p>
                             <select
@@ -368,8 +368,9 @@ const AddProduct = () => {
                             {errors.transmission && <p className="error-message" style={{ fontSize: "12px" }}>{errors.transmission}</p>}
                         </div>
                     </div>
-
-                    <center><button onClick={addProduct} className="add-product-button" style={{ width: "100%" }}>Add Car</button></center>
+                    <div className="row">
+                        <button onClick={addProduct} className="add-product-button" style={{ width: "100%" }}>Add Car</button>
+                    </div>
                 </div>
             </div>
         </div>
