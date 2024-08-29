@@ -1,8 +1,12 @@
+.main-container {
+    background-color: #f1f1f1;
+}
+
 .product-details {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding: 40px;
     max-width: 1500px;
     margin: auto;
 }
@@ -50,7 +54,7 @@
 }
 
 .card {
-    background-color: #f9f9f9;
+    background-color: #fff;
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -121,6 +125,10 @@
 }
 
 @media screen and (max-width: 768px) {
+    .product-details {
+        padding: 20px;
+    }
+
     .row {
         flex-direction: column;
     }
@@ -128,5 +136,11 @@
     .productdetail-image img {
         width: 100%;
         height: auto;
+    }
+}
+
+@media screen and (max-width: 480px){
+    .product-details {
+        padding: 20px;
     }
 }

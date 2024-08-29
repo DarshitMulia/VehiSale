@@ -40,62 +40,64 @@ const ProductDetails = () => {
     }
 
     return (
-        <div className="product-details">
-            <div className="row">
-                <div className="col">
-                    <div className="productdetail-image">
-                        <img src={`data:image/jpeg;base64,${product.image}`} alt={product.name} />
-                    </div>
-                </div>
-                <div className="col">
-                    <div className="product-info">
-                        <h1 className="productdetail-name">{product.name}</h1>
-                        <div className="product-specs">
-                            <div className="card">
-                                <h2>Specifications</h2>
-                                <table className="specs-table">
-                                    <tbody>
-                                        <tr>
-                                            <th>Company</th>
-                                            <td>:</td>
-                                            <td>{product.company}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Year</th>
-                                            <td>:</td>
-                                            <td>{product.year}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Category</th>
-                                            <td>:</td>
-                                            <td>{product.category}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Mileage</th>
-                                            <td>:</td>
-                                            <td>{product.mileage} km/l</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Color</th>
-                                            <td>:</td>
-                                            <td>{product.color}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Transmission</th>
-                                            <td>:</td>
-                                            <td>{product.transmission}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Fuel Type</th>
-                                            <td>:</td>
-                                            <td>{product.fuelType}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+        <div className='main-container'>
+            <div className="product-details">
+                <div className="row">
+                    <div className="col">
+                        <div className="productdetail-image">
+                            <img src={`data:image/jpeg;base64,${product.image}`} alt={product.name} />
                         </div>
-                        <p className="product-price">₹{product.price}</p>
-                        <button className="buy-now-button">Buy Now</button>
+                    </div>
+                    <div className="col">
+                        <div className="product-info">
+                            <h1 className="productdetail-name">{product.name}</h1>
+                            <div className="product-specs">
+                                <div className="card">
+                                    <h2>Specifications</h2>
+                                    <table className="specs-table">
+                                        <tbody>
+                                            <tr>
+                                                <th>Company</th>
+                                                <td>:</td>
+                                                <td>{product.company}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Year</th>
+                                                <td>:</td>
+                                                <td>{product.year}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Category</th>
+                                                <td>:</td>
+                                                <td>{product.category}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Mileage</th>
+                                                <td>:</td>
+                                                <td>{product.mileage} km/l</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Color</th>
+                                                <td>:</td>
+                                                <td>{product.color}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Transmission</th>
+                                                <td>:</td>
+                                                <td>{product.transmission}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Fuel Type</th>
+                                                <td>:</td>
+                                                <td>{product.fuelType}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <p className="product-price">₹{product.price}</p>
+                            <button className="buy-now-button">Buy Now</button>
+                        </div>
                     </div>
                 </div>
             </div>
