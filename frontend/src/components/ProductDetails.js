@@ -40,8 +40,8 @@ const ProductDetails = () => {
     }
 
     return (
-        <div className='main-container'>
-            <div className="product-details">
+        <div className='product-details-main-container'>
+            <div className="pending-product-details">
                 <div className="row">
                     <div className="col">
                         <div className="productdetail-image">
