@@ -87,6 +87,7 @@ const PendingProducts = () => {
                     image: pendingProduct.image,
                     year: pendingProduct.year,
                     mileage: pendingProduct.mileage,
+                    kmsDriven: pendingProduct.kmsDriven,
                     color: pendingProduct.color,
                     transmission: pendingProduct.transmission,
                     fuelType: pendingProduct.fuelType,
@@ -134,6 +135,7 @@ const PendingProducts = () => {
                     image: pendingProduct.image,
                     year: pendingProduct.year,
                     mileage: pendingProduct.mileage,
+                    kmsDriven: pendingProduct.kmsDriven,
                     color: pendingProduct.color,
                     transmission: pendingProduct.transmission,
                     fuelType: pendingProduct.fuelType,
@@ -182,6 +184,11 @@ const PendingProducts = () => {
                                         <td><strong>Mileage</strong></td>
                                         <td>:</td>
                                         <td> {item.mileage}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>KMsDriven</strong></td>
+                                        <td>:</td>
+                                        <td> {item.kmsDriven}</td>
                                     </tr>
                                     <tr>
                                         <td><strong>Color</strong></td>

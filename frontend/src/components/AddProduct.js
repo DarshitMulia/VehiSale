@@ -4,12 +4,14 @@ import '../styles/addproduct.css';
 
 const AddProduct = () => {
     const [name, setName] = useState('');
+    // eslint-disable-next-line
     const [price, setPrice] = useState('');
     const [category, setCategory] = useState('');
     const [company, setCompany] = useState('');
     const [image, setImage] = useState(null);
     const [year, setYear] = useState('');
     const [mileage, setMileage] = useState('');
+    const [kmsDriven, setKmsDriven] = useState('');
     const [color, setColor] = useState('');
     const [transmission, setTransmission] = useState('');
     const [fuelType, setFuelType] = useState('');
@@ -20,6 +22,7 @@ const AddProduct = () => {
         company: '',
         year: '',
         mileage: '',
+        kmsDriven: '',
         color: '',
         transmission: '',
         fuelType: '',
@@ -68,6 +71,14 @@ const AddProduct = () => {
             newErrors.mileage = 'Mileage must be greater than or equal to zero';
         }
 
+        if (!kmsDriven) {
+            newErrors.kmsDriven = 'Kms Driven is required';
+        } else if (isNaN(kmsDriven)) {
+            newErrors.kmsDriven = 'Kms Driven must be a number';
+        } else if (kmsDriven < 0) {
+            newErrors.kmsDriven = 'Kms Driven must be greater than or equal to zero';
+        }
+
         if (!color) {
             newErrors.color = 'Color is required';
         }
@@ -103,6 +114,7 @@ const AddProduct = () => {
             formData.append('image', image);
             formData.append('year', year);
             formData.append('mileage', mileage);
+            formData.append('kmsDriven', kmsDriven);
             formData.append('color', color);
             formData.append('transmission', transmission);
             formData.append('fuelType', fuelType);
@@ -190,7 +202,7 @@ const AddProduct = () => {
                             {errors.year && <p className="error-message" style={{ fontSize: "12px" }}>{errors.year}</p>}
                         </div>
 
-                        <div className="col">
+                        <div className="col me-4">
                             <p><b>Price</b></p>
                             <input
                                 type="number"
@@ -199,6 +211,17 @@ const AddProduct = () => {
                                 onChange={(e) => setPrice(e.target.value)}
                                 className="add-product-input" />
                             {errors.price && <p className="error-message" style={{ fontSize: "12px" }}>{errors.price}</p>}
+                        </div>
+
+                        <div className="col">
+                            <p><b>Kms Driven</b></p>
+                            <input
+                                type="number"
+                                placeholder="Enter Kms Driven"
+                                value={kmsDriven}
+                                onChange={(e) => setKmsDriven(e.target.value)}
+                                className="add-product-input" />
+                            {errors.kmsDriven && <p className="error-message" style={{ fontSize: "12px" }}>{errors.kmsDriven}</p>}
                         </div>
                     </div>
 
@@ -369,7 +392,15 @@ const AddProduct = () => {
                         </div>
                     </div>
                     <div className="row">
-                        <button onClick={addProduct} className="add-product-button" style={{ width: "100%" }}>Add Car</button>
+                        <div className='col-3'>
+                            <button className="add-product-button" style={{ width: "100%", backgroundColor:"blue" }}>Predict Price</button>
+                        </div>
+                        <div className='col-3'>
+                            <h4 style={{display:"flex", justifyContent:"center", alignItems:"center"}}>3,90,000</h4>
+                        </div>
+                        <div className='col-6'>
+                            <button onClick={addProduct} className="add-product-button" style={{ width: "100%" }}>Add Car</button>
+                        </div>
                     </div>
                 </div>
             </div>

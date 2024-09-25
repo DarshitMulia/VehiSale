@@ -77,6 +77,11 @@ const ProductDetails = () => {
                                                 <td>{product.mileage} km/l</td>
                                             </tr>
                                             <tr>
+                                                <th>KMsDriven</th>
+                                                <td>:</td>
+                                                <td>{product.kmsDriven} km/l</td>
+                                            </tr>
+                                            <tr>
                                                 <th>Color</th>
                                                 <td>:</td>
                                                 <td>{product.color}</td>

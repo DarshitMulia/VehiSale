@@ -9,6 +9,7 @@ const pendingProductSchema = new mongoose.Schema({
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     year: { type: Number, required: true },
     mileage: { type: Number, required: true },
+    kmsDriven: { type: Number, required: true },
     color: { type: String, required: true },
     transmission: { type: String, required: true },
     fuelType: { type: String, required: true },
