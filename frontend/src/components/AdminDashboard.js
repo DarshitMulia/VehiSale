@@ -205,7 +205,7 @@ const AdminDashboard = () => {
 
                     <Grid item xs={12} md={4}>
                         <Card className="dashboard-chart-card">
-                            <Typography variant="h6" align="center">Product Distribution</Typography>
+                            <Typography variant="h6" align="center">Car Distribution</Typography>
                             <ResponsiveContainer width="100%" height={300}>
                                 <PieChart>
                                     <Pie
