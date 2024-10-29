@@ -1,0 +1,238 @@
+Name,Price (INR),Category,Company,Year,Mileage,Color,Transmission,FuelType,KMsDriven
+Swift,450000,Hatchback,Maruti,2015,18,White,Manual,Petrol,48406
+Alto,300000,Hatchback,Maruti,2012,21,Silver,Manual,Petrol,49710
+i20,550000,Hatchback,Hyundai,2018,20,Red,Manual,Diesel,36367
+City,750000,Sedan,Honda,2017,17,Blue,Automatic,Diesel,39445
+Baleno,650000,Hatchback,Maruti,2019,19,White,Manual,Petrol,16023
+Creta,1100000,SUV,Hyundai,2020,15,Black,Automatic,Diesel,20782
+Innova,850000,SUV,Toyota,2016,13,Silver,Manual,Diesel,32218
+Scorpio,900000,SUV,Mahindra,2015,14,White,Manual,Diesel,55396
+XUV500,1200000,SUV,Mahindra,2019,12,Red,Automatic,Diesel,19227
+Ertiga,700000,MPV,Maruti,2018,16,Blue,Manual,Petrol,28419
+WagonR,400000,Hatchback,Maruti,2014,20,Red,Manual,Petrol,42328
+Tiago,350000,Hatchback,Tata,2016,23,Yellow,Manual,Petrol,17342
+Verna,800000,Sedan,Hyundai,2017,18,Black,Automatic,Diesel,32627
+Ciaz,850000,Sedan,Maruti,2018,19,White,Automatic,Diesel,22777
+Kwid,280000,Hatchback,Renault,2019,25,Orange,Manual,Petrol,30687
+Duster,950000,SUV,Renault,2018,14,Blue,Manual,Diesel,36360
+Fortuner,1800000,SUV,Toyota,2020,11,Black,Automatic,Diesel,12609
+Seltos,1200000,SUV,Kia,2021,16,Silver,Manual,Petrol,22825
+Xcent,550000,Sedan,Hyundai,2015,18,White,Manual,Petrol,56524
+Brezza,950000,SUV,Maruti,2019,17,Red,Automatic,Petrol,11934
+Harrier,1350000,SUV,Tata,2020,15,Gray,Manual,Diesel,11021
+Tigor,450000,Sedan,Tata,2018,22,Silver,Manual,Petrol,32714
+Vento,650000,Sedan,Volkswagen,2017,19,Blue,Manual,Diesel,11408
+Polo,500000,Hatchback,Volkswagen,2016,20,White,Manual,Petrol,27101
+Ecosport,950000,SUV,Ford,2019,18,Silver,Manual,Diesel,28190
+Figo,400000,Hatchback,Ford,2014,20,Red,Manual,Petrol,33052
+Rapid,700000,Sedan,Skoda,2018,19,White,Automatic,Diesel,29185
+Hexa,1100000,SUV,Tata,2018,12,Black,Manual,Diesel,37299
+Thar,1300000,SUV,Mahindra,2021,15,Green,Manual,Diesel,18759
+Micra,450000,Hatchback,Nissan,2017,22,Orange,Manual,Petrol,18347
+Terrano,1000000,SUV,Nissan,2018,16,Blue,Manual,Diesel,27922
+Jazz,650000,Hatchback,Honda,2017,21,Yellow,Automatic,Petrol,25073
+Elantra,1400000,Sedan,Hyundai,2019,17,White,Automatic,Petrol,26276
+Go,300000,Hatchback,Datsun,2018,20,Red,Manual,Petrol,21888
+Triber,600000,MPV,Renault,2019,18,Blue,Manual,Petrol,29714
+Bolero,750000,SUV,Mahindra,2017,13,White,Manual,Diesel,16242
+Amaze,650000,Sedan,Honda,2019,20,Silver,Manual,Petrol,34616
+Ignis,500000,Hatchback,Maruti,2018,22,White,Manual,Petrol,26351
+Venue,900000,SUV,Hyundai,2020,17,Gray,Manual,Diesel,32483
+Altroz,650000,Hatchback,Tata,2021,24,Blue,Manual,Petrol,17551
+Santro,300000,Hatchback,Hyundai,2012,23,Silver,Manual,Petrol,37304
+Kicks,1100000,SUV,Nissan,2019,14,Black,Manual,Diesel,10248
+Sonet,1150000,SUV,Kia,2020,15,Red,Automatic,Diesel,35779
+Compass,1600000,SUV,Jeep,2021,12,White,Manual,Diesel,19751
+Civic,1600000,Sedan,Honda,2019,18,Gray,Automatic,Petrol,28709
+CR-V,1900000,SUV,Honda,2020,14,Black,Automatic,Diesel,15428
+Glanza,800000,Hatchback,Toyota,2020,20,Silver,Manual,Petrol,22967
+Zest,500000,Sedan,Tata,2017,19,White,Manual,Petrol,12933
+Tucson,1500000,SUV,Hyundai,2021,16,Gray,Automatic,Diesel,11280
+Redigo,350000,Hatchback,Datsun,2019,22,Yellow,Manual,Petrol,10710
+Marazzo,1200000,MPV,Mahindra,2019,17,Blue,Manual,Diesel,38889
+Kushaq,1300000,SUV,Skoda,2021,16,White,Manual,Petrol,31128
+Go+,500000,MPV,Datsun,2018,18,Silver,Manual,Petrol,32729
+Karoq,1600000,SUV,Skoda,2020,14,Gray,Automatic,Diesel,34603
+Nexon,1100000,SUV,Tata,2019,18,Red,Manual,Diesel,15572
+Tiago NRG,500000,Hatchback,Tata,2020,21,Orange,Manual,Petrol,17910
+Urban Cruiser,900000,SUV,Toyota,2021,19,White,Manual,Petrol,27376
+Aura,700000,Sedan,Hyundai,2020,22,Silver,Manual,Petrol,34403
+Amaze,620000,Sedan,Honda,2017,18,White,Manual,Petrol,20274
+Alturas G4,2000000,SUV,Mahindra,2021,14,Black,Automatic,Diesel,37247
+Baleno RS,750000,Hatchback,Maruti,2018,20,Blue,Manual,Petrol,21560
+Camry,2500000,Sedan,Toyota,2020,12,Silver,Automatic,Hybrid,24015
+XUV300,1200000,SUV,Mahindra,2019,17,Red,Manual,Petrol,33530
+Alcazar,1600000,SUV,Hyundai,2022,15,Blue,Automatic,Diesel,13262
+Aspire,680000,Sedan,Ford,2019,19,White,Manual,Diesel,12850
+Eeco,450000,MPV,Maruti,2016,14,Red,Manual,Petrol,35199
+Tiguan,3000000,SUV,Volkswagen,2020,12,Black,Automatic,Diesel,13841
+Gurkha,1400000,SUV,Force,2021,10,Green,Manual,Diesel,36985
+S-Cross,950000,SUV,Maruti,2018,16,Silver,Manual,Diesel,20553
+Jazz VX,750000,Hatchback,Honda,2019,21,Yellow,Automatic,Petrol,37046
+Safari,1800000,SUV,Tata,2021,13,White,Manual,Diesel,24949
+Avventura,520000,Hatchback,Fiat,2017,20,Orange,Manual,Petrol,22449
+Tavera,850000,MPV,Chevrolet,2015,12,Blue,Manual,Diesel,50832
+Etios,700000,Sedan,Toyota,2018,18,Red,Manual,Petrol,31601
+WR-V,800000,Hatchback,Honda,2019,20,Silver,Manual,Petrol,22535
+MG Hector,1400000,SUV,MG,2020,15,White,Automatic,Diesel,18314
+KUV100,500000,Hatchback,Mahindra,2017,22,Red,Manual,Petrol,25926
+Celerio,400000,Hatchback,Maruti,2015,23,Yellow,Manual,Petrol,51926
+Freestyle,600000,Hatchback,Ford,2019,20,Blue,Manual,Diesel,28517
+Kiger,750000,SUV,Renault,2021,18,Silver,Manual,Petrol,15482
+E-Class,5000000,Sedan,Mercedes,2020,12,Black,Automatic,Diesel,25290
+S60,3500000,Sedan,Volvo,2021,14,White,Automatic,Petrol,39496
+Q5,5500000,SUV,Audi,2020,13,Red,Automatic,Diesel,16439
+Compass Trailhawk,2000000,SUV,Jeep,2019,16,Blue,Automatic,Diesel,20512
+Glanza G,800000,Hatchback,Toyota,2019,19,Silver,Manual,Petrol,30675
+Urban Cross,620000,Hatchback,Fiat,2018,20,Orange,Manual,Diesel,39658
+Santro Xing,350000,Hatchback,Hyundai,2014,22,Red,Manual,Petrol,39149
+Xylo,920000,MPV,Mahindra,2017,15,White,Manual,Diesel,27074
+Indigo,450000,Sedan,Tata,2015,18,Blue,Manual,Diesel,51082
+Z4,6500000,Convertible,BMW,2021,11,Yellow,Automatic,Petrol,33201
+Baleno Delta,800000,Hatchback,Maruti,2021,19,Gray,Manual,Petrol,26431
+Venue SX,950000,SUV,Hyundai,2020,17,Red,Manual,Petrol,38157
+Sonata,1800000,Sedan,Hyundai,2019,16,Black,Automatic,Petrol,29551
+Octavia,2000000,Sedan,Skoda,2020,14,Blue,Automatic,Diesel,20484
+Innova Crysta,1800000,MPV,Toyota,2021,13,Silver,Manual,Diesel,14524
+A-Class,4000000,Sedan,Mercedes,2021,14,White,Automatic,Petrol,19315
+D-Max,1600000,Pickup,Isuzu,2020,11,Gray,Manual,Diesel,11822
+Mustang,7000000,Coupe,Ford,2021,10,Yellow,Automatic,Petrol,32457
+XJ,8500000,Sedan,Jaguar,2020,10,Black,Automatic,Petrol,25027
+Terrano XV,950000,SUV,Nissan,2017,15,Red,Manual,Diesel,36321
+Eon,320000,Hatchback,Hyundai,2015,23,White,Manual,Petrol,38316
+Ameo,600000,Sedan,Volkswagen,2018,20,Blue,Manual,Diesel,17921
+Zest XMS,580000,Sedan,Tata,2017,18,Silver,Manual,Petrol,23409
+Superb,2200000,Sedan,Skoda,2021,14,White,Automatic,Petrol,29020
+Vitara Brezza,850000,SUV,Maruti,2019,18,Gray,Automatic,Diesel,15256
+Gloster,2500000,SUV,MG,2021,14,White,Automatic,Diesel,16840
+X1,4500000,SUV,BMW,2020,12,Black,Automatic,Petrol,21621
+Ignis Zeta,700000,Hatchback,Maruti,2021,20,Blue,Manual,Petrol,39599
+Civic ZX,1800000,Sedan,Honda,2020,18,Gray,Automatic,Petrol,22130
+Trailblazer,2400000,SUV,Chevrolet,2018,11,Silver,Automatic,Diesel,16938
+S-Class,12000000,Sedan,Mercedes,2021,10,Black,Automatic,Petrol,13447
+GTR,20000000,Coupe,Nissan,2020,9,Red,Automatic,Petrol,19774
+XC90,8000000,SUV,Volvo,2021,13,Blue,Automatic,Diesel,34486
+F-Pace,9000000,SUV,Jaguar,2020,12,White,Automatic,Diesel,26232
+Kodiaq,3500000,SUV,Skoda,2021,15,Gray,Automatic,Diesel,32698
+Altroz XE,600000,Hatchback,Tata,2021,22,Gray,Manual,Petrol,17340
+Celerio ZXI,550000,Hatchback,Maruti,2020,24,Blue,Manual,Petrol,32365
+Magnite,800000,SUV,Nissan,2021,18,Red,Automatic,Petrol,28313
+Kiger RXT,850000,SUV,Renault,2021,17,White,Manual,Petrol,37910
+Taigun,1600000,SUV,Volkswagen,2022,14,Yellow,Automatic,Petrol,32864
+Kushaq Active,1450000,SUV,Skoda,2021,16,Silver,Automatic,Petrol,24217
+Hector Plus,1900000,SUV,MG,2021,15,Green,Automatic,Diesel,30722
+Sonet HTK,1000000,SUV,Kia,2020,16,Black,Manual,Diesel,24209
+Harrier XZ,1400000,SUV,Tata,2021,13,Orange,Automatic,Diesel,36758
+Alturas G4,2800000,SUV,Mahindra,2021,11,White,Automatic,Diesel,36585
+Compass Limited,1900000,SUV,Jeep,2020,12,Silver,Automatic,Diesel,37288
+Z4 M40i,7500000,Convertible,BMW,2021,10,Red,Automatic,Petrol,33733
+Range Rover Evoque,6500000,SUV,Land Rover,2020,11,Blue,Automatic,Petrol,25689
+GLA 200,4300000,SUV,Mercedes,2021,12,Gray,Automatic,Petrol,13965
+Polo GT,850000,Hatchback,Volkswagen,2019,20,Red,Automatic,Petrol,38411
+Urban Cruiser High,1000000,SUV,Toyota,2021,19,Blue,Automatic,Petrol,34274
+Hyryder,1200000,SUV,Toyota,2022,17,White,Manual,Hybrid,10877
+Vitara,900000,SUV,Suzuki,2020,20,Orange,Manual,Petrol,26299
+Glanza V,850000,Hatchback,Toyota,2020,19,Gray,Manual,Petrol,34823
+TUV300,1050000,SUV,Mahindra,2020,15,Black,Manual,Diesel,31080
+WR-V VX,750000,Hatchback,Honda,2019,21,Yellow,Manual,Petrol,13567
+Santro Sportz,500000,Hatchback,Hyundai,2019,23,Red,Manual,Petrol,24285
+Verna SX,1000000,Sedan,Hyundai,2021,18,White,Automatic,Petrol,29457
+Creta S,1300000,SUV,Hyundai,2021,17,Gray,Automatic,Diesel,38597
+Swift VXI,650000,Hatchback,Maruti,2021,21,Silver,Manual,Petrol,13239
+XL6 Alpha,1200000,MPV,Maruti,2021,17,Blue,Manual,Petrol,11789
+Duster RXZ,950000,SUV,Renault,2019,16,White,Manual,Diesel,27637
+Civic ZX,1600000,Sedan,Honda,2019,18,Red,Automatic,Petrol,10955
+Ciaz Zeta,950000,Sedan,Maruti,2018,19,Black,Manual,Diesel,26168
+Ertiga ZXI,850000,MPV,Maruti,2019,20,Gray,Manual,Petrol,30485
+City ZX,1300000,Sedan,Honda,2020,18,White,Automatic,Petrol,20174
+Seltos GTX,1500000,SUV,Kia,2021,16,Red,Automatic,Petrol,13640
+Fortuner Sigma,3000000,SUV,Toyota,2021,14,Black,Automatic,Diesel,29903
+Endeavour,3500000,SUV,Ford,2020,13,Gray,Automatic,Diesel,33794
+EcoSport Titanium,900000,SUV,Ford,2019,18,Silver,Manual,Diesel,39467
+Aspire Titanium,650000,Sedan,Ford,2020,21,White,Manual,Diesel,20143
+Zest Revotron,700000,Sedan,Tata,2018,22,Yellow,Manual,Petrol,32535
+Kwid Climber,500000,Hatchback,Renault,2020,25,Orange,Manual,Petrol,19368
+Vento Highline,900000,Sedan,Volkswagen,2019,18,Blue,Automatic,Diesel,26962
+Jazz S,800000,Hatchback,Honda,2020,20,White,Automatic,Petrol,13614
+Venue SX,1150000,SUV,Hyundai,2020,16,Black,Manual,Diesel,28066
+XUV500 W8,1400000,SUV,Mahindra,2021,14,Red,Manual,Diesel,32727
+Thar LX,1300000,SUV,Mahindra,2021,12,Yellow,Automatic,Diesel,33775
+Kwid RXT,450000,Hatchback,Renault,2019,23,White,Manual,Petrol,39636
+Redigo T,350000,Hatchback,Datsun,2019,22,Gray,Manual,Petrol,17980
+Tiago XT,600000,Hatchback,Tata,2020,21,Yellow,Manual,Petrol,16809
+Figo Titanium,500000,Hatchback,Ford,2018,20,Blue,Manual,Diesel,15159
+Terrano XL,850000,SUV,Nissan,2018,16,Silver,Manual,Diesel,37609
+Hexa XTA,1350000,SUV,Tata,2020,14,Black,Automatic,Diesel,32096
+Freestyle S,700000,Hatchback,Ford,2019,22,Red,Manual,Diesel,31593
+Rapid Style,850000,Sedan,Skoda,2018,19,Gray,Manual,Diesel,26108
+Tiguan Allspace,3500000,SUV,Volkswagen,2020,13,White,Automatic,Petrol,21375
+Innova Touring Sport,2400000,MPV,Toyota,2020,12,Silver,Automatic,Diesel,15908
+CR-V AWD,2800000,SUV,Honda,2020,15,Blue,Automatic,Petrol,18833
+Gurkha Xtreme,1600000,SUV,Force,2021,10,Green,Manual,Diesel,25118
+Yaris VX,1050000,Sedan,Toyota,2019,18,Red,Automatic,Petrol,38426
+Tigor EV,1300000,Sedan,Tata,2021,16,Blue,Automatic,Electric,34287
+Baleno Alpha,950000,Hatchback,Maruti,2020,20,Silver,Manual,Petrol,18157
+Swift Dzire,800000,Sedan,Maruti,2020,22,Gray,Manual,Petrol,27925
+Eeco Cargo,550000,MPV,Maruti,2019,18,White,Manual,Petrol,21236
+S-Cross Alpha,1100000,SUV,Maruti,2021,17,Blue,Manual,Diesel,26025
+Tucson GL,1600000,SUV,Hyundai,2020,15,Black,Automatic,Diesel,16420
+Kodiaq Style,2800000,SUV,Skoda,2020,14,Gray,Automatic,Diesel,32289
+Carnival Limousine,3200000,MPV,Kia,2021,13,White,Automatic,Diesel,18135
+Glanza Smart,950000,Hatchback,Toyota,2020,19,Silver,Manual,Petrol,16345
+Ignis Alpha,750000,Hatchback,Maruti,2019,21,Orange,Manual,Petrol,18406
+Toyota Corolla,1200000,Sedan,Toyota,2022,15000,Silver,Automatic,Petrol,39173
+Honda City,1400000,Sedan,Honda,2023,8000,White,Automatic,Petrol,22144
+Hyundai Venue,950000,SUV,Hyundai,2021,18000,Red,Manual,Petrol,32374
+Ford EcoSport,1050000,SUV,Ford,2022,12000,Blue,Automatic,Diesel,34014
+Maruti Swift,600000,Hatchback,Maruti,2023,12000,Green,Manual,Petrol,25523
+Chevrolet Beat,500000,Hatchback,Chevrolet,2021,25000,Yellow,Manual,Petrol,20446
+Mercedes-Benz E-Class,5000000,Sedan,Mercedes-Benz,2023,5000,Black,Automatic,Diesel,13270
+Audi Q7,6000000,SUV,Audi,2023,4000,White,Automatic,Diesel,22157
+BMW 5 Series,4500000,Sedan,BMW,2022,6000,Blue,Automatic,Petrol,28714
+Kia Seltos,1300000,SUV,Kia,2022,15000,Beige,Manual,Petrol,19193
+Tata Nexon,800000,SUV,Tata,2021,20000,Orange,Automatic,Diesel,15734
+Renault Duster,900000,SUV,Renault,2022,11000,Silver,Manual,Petrol,34801
+Nissan Kicks,1100000,SUV,Nissan,2023,9000,Gray,Automatic,Diesel,23909
+Skoda Octavia,2000000,Sedan,Skoda,2023,7000,Black,Automatic,Petrol,32039
+Volkswagen Polo,700000,Hatchback,Volkswagen,2021,22000,White,Manual,Petrol,14677
+Hyundai Creta,1500000,SUV,Hyundai,2022,13000,Blue,Automatic,Petrol,19488
+Ford Endeavour,3200000,SUV,Ford,2023,6000,Beige,Automatic,Diesel,26221
+Toyota Innova Crysta,2500000,MPV,Toyota,2023,8000,Silver,Automatic,Diesel,13025
+Maruti Alto,500000,Hatchback,Maruti,2020,30000,Yellow,Manual,Petrol,38852
+Honda Accord,2500000,Sedan,Honda,2023,6000,Gray,Automatic,Petrol,11331
+Mahindra XUV500,2200000,SUV,Mahindra,2021,15000,Black,Manual,Diesel,10723
+Audi A6,4000000,Sedan,Audi,2022,8000,Silver,Automatic,Petrol,22310
+BMW X3,3700000,SUV,BMW,2022,7000,Black,Automatic,Diesel,34344
+Hyundai i20,850000,Hatchback,Hyundai,2023,12000,Red,Automatic,Petrol,15673
+Ford Fiesta,900000,Sedan,Ford,2021,20000,Silver,Manual,Petrol,39680
+Volkswagen Vento,1200000,Sedan,Volkswagen,2022,10000,Black,Automatic,Petrol,38114
+Skoda Superb,2000000,Sedan,Skoda,2023,7000,White,Automatic,Diesel,39700
+Renault Lodgy,1400000,MPV,Renault,2021,15000,Green,Manual,Diesel,36068
+Nissan Altima,1500000,Sedan,Nissan,2022,12000,Beige,Automatic,Petrol,15841
+Kia Carnival,2200000,MPV,Kia,2022,10000,Silver,Automatic,Diesel,35228
+Tata Tigor,700000,Sedan,Tata,2021,18000,Blue,Manual,Petrol,32739
+MG Hector Plus,1800000,SUV,MG,2022,11000,Orange,Automatic,Petrol,17516
+Toyota Land Cruiser,6000000,SUV,Toyota,2023,5000,White,Automatic,Diesel,37709
+Mahindra Bolero,1200000,SUV,Mahindra,2022,14000,Black,Manual,Diesel,34647
+BMW X5,4500000,SUV,BMW,2023,6000,Blue,Automatic,Diesel,30428
+Hyundai Santro,600000,Hatchback,Hyundai,2021,25000,Purple,Manual,Petrol,16016
+Ford Figo,700000,Hatchback,Ford,2022,12000,White,Automatic,Petrol,24572
+Maruti Dzire,800000,Sedan,Maruti,2021,15000,Silver,Manual,Petrol,22807
+Volkswagen Jetta,1300000,Sedan,Volkswagen,2022,10000,Gray,Automatic,Diesel,23863
+Skoda Kodiaq,2500000,SUV,Skoda,2023,9000,Green,Automatic,Diesel,30204
+Renault Triber,800000,MPV,Renault,2021,20000,Blue,Manual,Petrol,28216
+Nissan Sunny,900000,Sedan,Nissan,2022,15000,Brown,Automatic,Petrol,29501
+Kia Seltos,1300000,SUV,Kia,2023,12000,Beige,Manual,Petrol,26612
+Tata Safari,2000000,SUV,Tata,2022,15000,Red,Automatic,Diesel,39570
+MG Hector,1600000,SUV,MG,2021,18000,Black,Manual,Petrol,39268
+Honda Jazz,850000,Hatchback,Honda,2022,13000,Orange,Automatic,Petrol,29388
+Toyota Etios,1100000,Sedan,Toyota,2022,12000,Beige,Manual,Petrol,16365
+Mahindra KUV100,1000000,SUV,Mahindra,2021,15000,Green,Manual,Petrol,19356
+Audi A4,3000000,Sedan,Audi,2023,8000,White,Automatic,Diesel,34230
+BMW X7,6000000,SUV,BMW,2023,5000,Black,Automatic,Diesel,11026
+Hyundai Creta,1500000,SUV,Hyundai,2022,12000,Gray,Automatic,Petrol,11303
+Maruti Ertiga,1500000,MPV,Maruti,2022,15000,White,Automatic,Petrol,13429
+Volkswagen Taigun,1400000,SUV,Volkswagen,2022,11000,Yellow,Manual,Petrol,23730
+Skoda Rapid,1200000,Sedan,Skoda,2023,8000,Orange,Automatic,Diesel,14079
+Renault Kwid,700000,Hatchback,Renault,2021,17000,Green,Manual,Petrol,26119
+Nissan Micra,750000,Hatchback,Nissan,2023,12000,Red,Automatic,Petrol,11816
