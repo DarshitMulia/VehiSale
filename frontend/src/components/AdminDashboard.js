@@ -129,7 +129,7 @@ const AdminDashboard = () => {
                                     <InventoryIcon />
                                 </Avatar>
                                 <div className="dashboard-text">
-                                    <Typography variant="body1">Cars</Typography>
+                                    <Typography variant="body1">Cars Listed</Typography>
                                     <Typography variant="h4">{productCount}</Typography>
                                     <LinearProgress variant="determinate" value={(productCount % 100)} className="dashboard-progress" />
                                 </div>
