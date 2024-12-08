@@ -61,6 +61,7 @@ const SignUp = () => {
                 if (response.ok) {
                     const result = await response.json();
                     localStorage.setItem('user', JSON.stringify(result.user));
+                    localStorage.setItem('token', JSON.stringify(result.auth));
                     setShowPopup(true);
 
                     setTimeout(() => {

@@ -56,7 +56,15 @@ app.post("/register", async (req, res) => {
         const savedUser = await user.save(); // Save the user to the database
         const userData = savedUser.toObject(); // Convert saved user to a plain object
         delete userData.password; // Exclude password from response for security
-        res.send({ user: userData }); // Send back user data (without password)
+        Jwt.sign({ user: userData }, jwtkey, { expiresIn: "1y" }, (err, token) => {
+            if (err) {
+                console.error('Error during token generation:', err);
+                return res.status(500).send({ result: "Something went wrong, Please try after some time" });
+            }
+
+            // Send back user data along with the generated token
+            res.send({ user: userData, auth: token });
+        });
     } catch (error) {
         console.error('Error during user registration:', error);
         res.status(500).send({ result: "Something went wrong, Please try after some time" }); // Handle any errors
@@ -223,13 +231,13 @@ app.post('/add-product', verifyToken, upload.single('image'), async (req, res) =
             company,
             year,
             mileage,
-            kmsDriven,  
+            kmsDriven,
             color,
             transmission,
             fuelType,
             image,
             userId
-        });        
+        });
         const result = await product.save(); // Save the pending product to the database
         res.status(201).json(result); // Send the saved product as a response
     } catch (error) {
@@ -284,12 +292,12 @@ app.put('/pending-products/approve-reject/:id', verifyToken, async (req, res) =>
                 image: pendingProduct.image,
                 year: pendingProduct.year,
                 mileage: pendingProduct.mileage,
-                kmsDriven: pendingProduct.kmsDriven, 
+                kmsDriven: pendingProduct.kmsDriven,
                 color: pendingProduct.color,
                 transmission: pendingProduct.transmission,
                 fuelType: pendingProduct.fuelType,
                 userId: pendingProduct.userId
-            });            
+            });
             await product.save(); // Save the approved product to the Product collection
             await PendingProduct.findByIdAndDelete(id); // Remove the product from the PendingProduct collection
             res.status(200).json({ message: 'Product approved successfully' }); // Send a success response
@@ -308,13 +316,13 @@ app.put('/pending-products/approve-reject/:id', verifyToken, async (req, res) =>
                 image: pendingProduct.image,
                 year: pendingProduct.year,
                 mileage: pendingProduct.mileage,
-                kmsDriven: pendingProduct.kmsDriven, 
+                kmsDriven: pendingProduct.kmsDriven,
                 color: pendingProduct.color,
                 transmission: pendingProduct.transmission,
                 fuelType: pendingProduct.fuelType,
                 userId: pendingProduct.userId,
                 reason: reason
-            });            
+            });
             await rejectedProduct.save(); // Save the rejected product to the RejectedProduct collection
             await PendingProduct.findByIdAndDelete(id); // Remove the product from the PendingProduct collection
             res.status(200).json({ message: 'Product rejected successfully' }); // Send a success response
