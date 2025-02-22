@@ -271,7 +271,6 @@ app.get('/pending-products', verifyToken, async (req, res) => {
 
 
 // --------------------------------------PUT Route for Approving or Rejecting Pending Products--------------------------------------
-// Route to handle approval or rejection of pending products
 app.put('/pending-products/approve-reject/:id', verifyToken, async (req, res) => {
     try {
         const { id } = req.params; // Get the product ID from the route parameters
@@ -281,7 +280,7 @@ app.put('/pending-products/approve-reject/:id', verifyToken, async (req, res) =>
         if (action === 'approve') { // Handle product approval
             const pendingProduct = await PendingProduct.findById(id); // Find the product by ID
             if (!pendingProduct) {
-                return res.status(404).json({ error: 'Pending product not found' }); // Handle case where product is not found
+                return res.status(404).json({ error: 'Pending product not found' });
             }
             // Create a new Product instance using the pending product's data
             product = new Product({
@@ -300,12 +299,12 @@ app.put('/pending-products/approve-reject/:id', verifyToken, async (req, res) =>
             });
             await product.save(); // Save the approved product to the Product collection
             await PendingProduct.findByIdAndDelete(id); // Remove the product from the PendingProduct collection
-            res.status(200).json({ message: 'Product approved successfully' }); // Send a success response
+            res.status(200).json({ message: 'Product approved successfully' });
 
         } else if (action === 'reject') { // Handle product rejection
             const pendingProduct = await PendingProduct.findById(id); // Find the product by ID
             if (!pendingProduct) {
-                return res.status(404).json({ error: 'Pending product not found' }); // Handle case where product is not found
+                return res.status(404).json({ error: 'Pending product not found' });
             }
             // Create a new RejectedProduct instance using the pending product's data and rejection reason
             rejectedProduct = new RejectedProduct({
@@ -325,13 +324,13 @@ app.put('/pending-products/approve-reject/:id', verifyToken, async (req, res) =>
             });
             await rejectedProduct.save(); // Save the rejected product to the RejectedProduct collection
             await PendingProduct.findByIdAndDelete(id); // Remove the product from the PendingProduct collection
-            res.status(200).json({ message: 'Product rejected successfully' }); // Send a success response
+            res.status(200).json({ message: 'Product rejected successfully' });
         } else {
-            res.status(400).json({ error: 'Invalid action' }); // Handle invalid actions
+            res.status(400).json({ error: 'Invalid action' });
         }
     } catch (error) {
-        console.error(error); // Log any errors that occur
-        res.status(500).send('Internal Server Error'); // Send an error response if something goes wrong
+        console.error(error);
+        res.status(500).send('Internal Server Error');
     }
 });
 

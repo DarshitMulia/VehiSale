@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import Modal from 'react-modal';
 import '../styles/userprofile.css';
 
+Modal.setAppElement('#root');
+
 const UserProfile = () => {
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -109,35 +111,37 @@ const UserProfile = () => {
                         <div style={{ marginBottom: "20px" }}>
                             <h3>Car Listings</h3>
                         </div>
-                        {approvedCars.length || rejectedCars.length || pendingCars.length > 0 ? (
+                        {(approvedCars.length || rejectedCars.length || pendingCars.length) > 0 ? (
                             <div className="car-list">
                                 {approvedCars.map((item) => (
                                     <div className="listing" key={item._id}>
                                         <img className="car-image" src={`data:image/jpeg;base64,${item.image}`} alt="Car" />
                                         <div className="listing-details">
                                             <h5>{item.name}</h5>
-                                            <tbody>
-                                                <tr>
-                                                    <td><p>Price</p></td>
-                                                    <td>:</td>
-                                                    <td> ₹{item.price}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><p>year</p></td>
-                                                    <td>:</td>
-                                                    <td>{item.year}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><p>Company</p></td>
-                                                    <td>:</td>
-                                                    <td>{item.company}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><p>Status</p></td>
-                                                    <td>:</td>
-                                                    <td><span style={{ color: "#66FF00" }}><b>Approved</b></span></td>
-                                                </tr>
-                                            </tbody>
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><p>Price</p></td>
+                                                        <td>:</td>
+                                                        <td> ₹{item.price}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><p>Year</p></td>
+                                                        <td>:</td>
+                                                        <td>{item.year}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><p>Company</p></td>
+                                                        <td>:</td>
+                                                        <td>{item.company}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><p>Status</p></td>
+                                                        <td>:</td>
+                                                        <td><span style={{ color: "#66FF00" }}><b>Approved</b></span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 ))}
@@ -146,33 +150,35 @@ const UserProfile = () => {
                                         <img className="car-image" style={{ height: "250px" }} src={`data:image/jpeg;base64,${item.image}`} alt="Car" />
                                         <div className="listing-details">
                                             <h5>{item.name}</h5>
-                                            <tbody>
-                                                <tr>
-                                                    <td><p>Price</p></td>
-                                                    <td>:</td>
-                                                    <td>₹{item.price}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><p>year</p></td>
-                                                    <td>:</td>
-                                                    <td>{item.year}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><p>Company</p></td>
-                                                    <td>:</td>
-                                                    <td>{item.company}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><p>Status</p></td>
-                                                    <td>:</td>
-                                                    <td><span style={{ color: "red" }}><b>Rejected</b></span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td><p>Reason</p></td>
-                                                    <td>:</td>
-                                                    <td>{item.reason}</td>
-                                                </tr>
-                                            </tbody>
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><p>Price</p></td>
+                                                        <td>:</td>
+                                                        <td>₹{item.price}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><p>Year</p></td>
+                                                        <td>:</td>
+                                                        <td>{item.year}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><p>Company</p></td>
+                                                        <td>:</td>
+                                                        <td>{item.company}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><p>Status</p></td>
+                                                        <td>:</td>
+                                                        <td><span style={{ color: "red" }}><b>Rejected</b></span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><p>Reason</p></td>
+                                                        <td>:</td>
+                                                        <td>{item.reason}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 ))}
@@ -181,28 +187,30 @@ const UserProfile = () => {
                                         <img className="car-image" src={`data:image/jpeg;base64,${item.image}`} alt="Car" />
                                         <div className="listing-details">
                                             <h5>{item.name}</h5>
-                                            <tbody>
-                                                <tr>
-                                                    <td><p>Price</p></td>
-                                                    <td>:</td>
-                                                    <td>₹ {item.price}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><p>Year</p></td>
-                                                    <td>:</td>
-                                                    <td>{item.year}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><p>Company</p></td>
-                                                    <td>:</td>
-                                                    <td>{item.company}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><p>Status</p></td>
-                                                    <td>:</td>
-                                                    <td><span style={{ color: "blue" }}><b>Pending</b></span></td>
-                                                </tr>
-                                            </tbody>
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><p>Price</p></td>
+                                                        <td>:</td>
+                                                        <td>₹ {item.price}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><p>Year</p></td>
+                                                        <td>:</td>
+                                                        <td>{item.year}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><p>Company</p></td>
+                                                        <td>:</td>
+                                                        <td>{item.company}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><p>Status</p></td>
+                                                        <td>:</td>
+                                                        <td><span style={{ color: "blue" }}><b>Pending</b></span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 ))}

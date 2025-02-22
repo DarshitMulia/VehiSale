@@ -149,10 +149,10 @@ const AddProduct = () => {
     return (
         <div>
             {showPopup && (
-                <div class="add-product-popup">
-                    <div class="add-product-popup-content">
-                        <div class="car-container">
-                            <div class="car-animation">
+                <div className="add-product-popup">
+                    <div className="add-product-popup-content">
+                        <div className="car-container">
+                            <div className="car-animation">
                                 🚗
                             </div>
                         </div>

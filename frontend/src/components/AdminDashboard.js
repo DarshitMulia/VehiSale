@@ -183,7 +183,7 @@ const AdminDashboard = () => {
                                     </TableHead>
                                     <TableBody>
                                         {currentUsers.map((user) => (
-                                            <TableRow key={user.id}>
+                                            <TableRow key={user._id}>
                                                 <TableCell align="center">{user.name}</TableCell>
                                                 <TableCell align="center">{user.email}</TableCell>
                                                 <TableCell align="center">{user.createdAt}</TableCell>
@@ -221,7 +221,7 @@ const AdminDashboard = () => {
                                         ))}
                                     </Pie>
                                     <Tooltip />
-                                    <Legend verticalAlign="bottom" height={36} iconType="circle"/>
+                                    <Legend verticalAlign="bottom" height={36} iconType="circle" />
                                 </PieChart>
                             </ResponsiveContainer>
                         </Card>

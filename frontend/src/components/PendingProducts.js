@@ -58,11 +58,11 @@ const PendingProducts = () => {
         setAcceptModalIsOpen(true);
     };
 
-    const approveProduct = async (id) => {
+    // Updated function: No parameter passed, uses selectedProductId from state.
+    const approveProduct = async () => {
         try {
             const token = JSON.parse(localStorage.getItem('token'));
-
-            const response = await fetch(`http://localhost:5000/pending-products/approve-reject/${id}`, {
+            const response = await fetch(`http://localhost:5000/pending-products/approve-reject/${selectedProductId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -72,8 +72,7 @@ const PendingProducts = () => {
             });
 
             if (response.ok) {
-                const pendingProduct = pendingProducts.find(product => product._id === id);
-
+                const pendingProduct = pendingProducts.find(product => product._id === selectedProductId);
                 if (!pendingProduct.userId) {
                     console.error('User ID not found in pending product data.');
                     return;
@@ -95,9 +94,7 @@ const PendingProducts = () => {
                 };
 
                 setProducts([...products, newProduct]);
-
-                setPendingProducts(pendingProducts.filter(product => product._id !== id));
-
+                setPendingProducts(pendingProducts.filter(product => product._id !== selectedProductId));
                 setAcceptModalIsOpen(false);
                 setSelectedProductId(null);
             } else {
@@ -116,11 +113,12 @@ const PendingProducts = () => {
 
     const rejectProduct = async () => {
         try {
+            const token = JSON.parse(localStorage.getItem('token'));
             const response = await fetch(`http://localhost:5000/pending-products/approve-reject/${selectedProductId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+                    Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify({ action: 'reject', reason: rejectionReason })
             });
@@ -143,9 +141,7 @@ const PendingProducts = () => {
                 };
 
                 setRejectedProducts([...rejectedProducts, rejectedProduct]);
-
                 setPendingProducts(pendingProducts.filter(product => product._id !== selectedProductId));
-
                 setRejectModalIsOpen(false);
                 setRejectionReason('');
                 setSelectedProductId(null);
@@ -163,7 +159,7 @@ const PendingProducts = () => {
             <div className="border"></div>
             <div className="product-cards">
                 {pendingProducts.length > 0 ? (
-                    pendingProducts.map((item, index) => (
+                    pendingProducts.map((item) => (
                         <div key={item._id} className="product-card">
                             <div className="product-image">
                                 <img src={`data:image/jpeg;base64,${item.image}`} alt={item.name} />
@@ -175,41 +171,43 @@ const PendingProducts = () => {
                             </div>
                             <div className="product-details">
                                 <table>
-                                    <tr>
-                                        <td><strong>Category</strong></td>
-                                        <td>:</td>
-                                        <td> {item.category}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Mileage</strong></td>
-                                        <td>:</td>
-                                        <td> {item.mileage}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>KMsDriven</strong></td>
-                                        <td>:</td>
-                                        <td> {item.kmsDriven}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Color</strong></td>
-                                        <td>:</td>
-                                        <td> {item.color}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Transmission</strong></td>
-                                        <td>:</td>
-                                        <td> {item.transmission}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Fuel Type</strong></td>
-                                        <td>:</td>
-                                        <td> {item.fuelType}</td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Price</strong></td>
-                                        <td>:</td>
-                                        <td> ₹ {item.price}</td>
-                                    </tr>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Category</strong></td>
+                                            <td>:</td>
+                                            <td>{item.category}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Mileage</strong></td>
+                                            <td>:</td>
+                                            <td>{item.mileage}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>KMsDriven</strong></td>
+                                            <td>:</td>
+                                            <td>{item.kmsDriven}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Color</strong></td>
+                                            <td>:</td>
+                                            <td>{item.color}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Transmission</strong></td>
+                                            <td>:</td>
+                                            <td>{item.transmission}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Fuel Type</strong></td>
+                                            <td>:</td>
+                                            <td>{item.fuelType}</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Price</strong></td>
+                                            <td>:</td>
+                                            <td>₹ {item.price}</td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                             <div className="product-actions">
