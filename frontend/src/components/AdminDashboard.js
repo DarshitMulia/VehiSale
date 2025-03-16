@@ -5,13 +5,16 @@ import {
     TableCell, TableContainer, TableHead, TableRow, Paper, LinearProgress, Pagination
 } from '@mui/material';
 import {
-    PieChart, Pie, Tooltip, Cell, Legend, ResponsiveContainer
+    PieChart, Pie, Tooltip, Cell, Legend, ResponsiveContainer,
+    BarChart, Bar, XAxis, YAxis, CartesianGrid, LineChart, Line
 } from 'recharts';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import PendingIcon from '@mui/icons-material/HourglassEmpty';
 import CancelIcon from '@mui/icons-material/Cancel';
 import '../styles/admindashboard.css';
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF', '#FF0080'];
 
 const AdminDashboard = () => {
     const [dashboardData, setDashboardData] = useState(null);
@@ -24,7 +27,7 @@ const AdminDashboard = () => {
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('user'));
-        if (!user.isAdmin) {
+        if (!user?.isAdmin) {
             navigate('/');
         }
     }, [navigate]);
@@ -83,7 +86,17 @@ const AdminDashboard = () => {
         return <Typography variant="h6" color="error" className="dashboard-error">Error: {error}</Typography>;
     }
 
-    const { userCount, pendingProductCount, productCount, rejectedProductCount, users } = dashboardData;
+    const {
+        userCount,
+        users,
+        pendingProductCount,
+        productCount,
+        rejectedProductCount,
+        productCategorySummary,
+        productCompanySummary,
+        productFuelTypeSummary,
+        productTransmissionSummary,
+    } = dashboardData;
 
     const pieData = [
         { name: 'Approved', value: productCount, color: '#4caf50' },
@@ -91,7 +104,6 @@ const AdminDashboard = () => {
         { name: 'Rejected', value: rejectedProductCount, color: '#f44336' },
     ];
 
-    // Pagination logic
     const indexOfLastItem = page * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentUsers = users.slice(indexOfFirstItem, indexOfLastItem);
@@ -106,6 +118,7 @@ const AdminDashboard = () => {
                 <center><h1 style={{ color: "#434343" }}>Dashboard</h1></center>
                 <div className="border"></div>
                 <Grid container spacing={4}>
+
 
                     <Grid item xs={12} md={3}>
                         <Card className="dashboard-card">
@@ -167,11 +180,10 @@ const AdminDashboard = () => {
                         </Card>
                     </Grid>
 
+
                     <Grid item xs={12} md={8}>
                         <Card className="dashboard-list-card shadow-sm">
-                            <Typography variant="h6" align="center" gutterBottom>
-                                User List
-                            </Typography>
+                            <Typography variant="h6" align="center" gutterBottom>User List</Typography>
                             <TableContainer component={Paper} className="table-responsive">
                                 <Table className="table table-hover table-striped">
                                     <TableHead>
@@ -203,9 +215,10 @@ const AdminDashboard = () => {
                         </Card>
                     </Grid>
 
+
                     <Grid item xs={12} md={4}>
                         <Card className="dashboard-chart-card">
-                            <Typography variant="h6" align="center">Car Distribution</Typography>
+                            <Typography variant="h6" align="center">Car Distribution By Status</Typography>
                             <ResponsiveContainer width="100%" height={300}>
                                 <PieChart>
                                     <Pie
@@ -222,6 +235,91 @@ const AdminDashboard = () => {
                                     </Pie>
                                     <Tooltip />
                                     <Legend verticalAlign="bottom" height={36} iconType="circle" />
+                                </PieChart>
+                            </ResponsiveContainer>
+                        </Card>
+                    </Grid>
+
+
+                    <Grid item xs={12} md={6}>
+                        <Card className="dashboard-chart-card">
+                            <Typography variant="h6" align="center" gutterBottom>
+                                Car Distribution by Category
+                            </Typography>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <BarChart data={productCategorySummary}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="_id" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Bar dataKey="count" fill="#8884d8" />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </Card>
+                    </Grid>
+
+
+                    <Grid item xs={12} md={6}>
+                        <Card className="dashboard-chart-card">
+                            <Typography variant="h6" align="center" gutterBottom>
+                                Car Distribution by Company
+                            </Typography>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <LineChart data={productCompanySummary}>
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="_id" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Line type="monotone" dataKey="count" stroke="#8884d8" />
+                                </LineChart>
+                            </ResponsiveContainer>
+                        </Card>
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Card className="dashboard-chart-card">
+                            <Typography variant="h6" align="center" gutterBottom>
+                                Car Distribution by Transmission
+                            </Typography>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <BarChart data={productTransmissionSummary} layout="vertical">
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis type="number" />
+                                    <YAxis type="category" dataKey="_id" />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Bar dataKey="count" fill="#82ca9d" />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </Card>
+                    </Grid>
+
+                    <Grid item xs={12} md={6}>
+                        <Card className="dashboard-chart-card">
+                            <Typography variant="h6" align="center" gutterBottom>
+                            Car Distribution by Fuel Type
+                            </Typography>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <PieChart>
+                                    <Pie
+                                        data={productFuelTypeSummary}
+                                        dataKey="count"
+                                        nameKey="_id"
+                                        cx="50%"
+                                        cy="50%"
+                                        outerRadius={80}
+                                        innerRadius={40}
+                                        fill="#8884d8"
+                                        label
+                                    >
+                                        {productFuelTypeSummary.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip />
+                                    <Legend />
                                 </PieChart>
                             </ResponsiveContainer>
                         </Card>

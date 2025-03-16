@@ -131,73 +131,60 @@ const checkAdmin = async (req, res, next) => {
 // Route to handle admin dashboard access, protected by checkAdmin middleware
 app.get('/admindashboard', verifyToken, checkAdmin, async (req, res) => {
     try {
-        // Get counts and data
-        const users = await User.find().select('-password'); // Exclude password for security
+        // Fetch all users from the database, excluding their passwords for security.
+        const users = await User.find().select('-password');
+        // Count the total number of users.
         const userCount = users.length;
 
+        // Fetch all pending products and count them.
         const pendingProducts = await PendingProduct.find();
         const pendingProductCount = pendingProducts.length;
 
+        // Fetch all approved products and count them.
         const products = await Product.find();
         const productCount = products.length;
 
+        // Fetch all rejected products and count them.
         const rejectedProducts = await RejectedProduct.find();
         const rejectedProductCount = rejectedProducts.length;
 
-        const testimonials = await Testimonial.find();
-        const testimonialCount = testimonials.length;
-
-        // Aggregate data for trends and summaries
-        const recentUsers = await User.find().sort({ createdAt: -1 }).limit(5); // Last 5 registered users
-        const recentPendingProducts = await PendingProduct.find().sort({ createdAt: -1 }).limit(5); // Last 5 pending products
-        const recentApprovedProducts = await Product.find().sort({ createdAt: -1 }).limit(5); // Last 5 approved products
-        const recentRejectedProducts = await RejectedProduct.find().sort({ createdAt: -1 }).limit(5); // Last 5 rejected products
-        const recentTestimonials = await Testimonial.find().sort({ createdAt: -1 }).limit(5); // Last 5 testimonials
-
-        // Summarize product distribution by category
+        // Aggregate products by category, counting how many products exist in each category.
         const productCategorySummary = await Product.aggregate([
             { $group: { _id: "$category", count: { $sum: 1 } } }
         ]);
 
-        // Summarize product distribution by company
+        // Aggregate products by company, counting how many products belong to each company.
         const productCompanySummary = await Product.aggregate([
             { $group: { _id: "$company", count: { $sum: 1 } } }
         ]);
 
-        // Summarize product distribution by fuel type
+        // Aggregate products by fuel type.
         const productFuelTypeSummary = await Product.aggregate([
             { $group: { _id: "$fuelType", count: { $sum: 1 } } }
         ]);
 
-        // Summarize product distribution by transmission
+        // Aggregate products by transmission type.
         const productTransmissionSummary = await Product.aggregate([
             { $group: { _id: "$transmission", count: { $sum: 1 } } }
         ]);
 
+        // Prepare the final dashboard data object with only the necessary fields.
         const dashboardData = {
             userCount,
             users,
             pendingProductCount,
-            pendingProducts,
             productCount,
-            products,
             rejectedProductCount,
-            rejectedProducts,
-            testimonialCount,
-            testimonials,
-            recentUsers,
-            recentPendingProducts,
-            recentApprovedProducts,
-            recentRejectedProducts,
-            recentTestimonials,
             productCategorySummary,
             productCompanySummary,
             productFuelTypeSummary,
             productTransmissionSummary,
         };
 
+        // Respond with the dashboard data and a 200 status code.
         res.status(200).json(dashboardData);
     } catch (error) {
+        // Log the error and respond with a 500 status code in case of an internal server error.
         console.error('Error fetching admin dashboard data:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
