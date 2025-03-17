@@ -21,91 +21,6 @@
     margin-bottom: 20px;
 }
 
-.testimonial-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2rem;
-}
-
-.col {
-    flex: 1 1 calc(33.33% - 2rem);
-    box-sizing: border-box;
-}
-
-.testimonial {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: auto;
-    overflow: hidden;
-    position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.5s ease forwards;
-    animation-delay: calc(0.1s * var(--i));
-}
-
-.testimonial:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
-}
-
-.testimonial img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 1rem;
-}
-
-.name {
-    font-size: 1.25rem;
-    text-transform: uppercase;
-    margin: 1rem 0;
-    color: #6ab04c;
-}
-
-.testimonial p {
-    font-size: 1rem;
-    line-height: 1.5;
-    max-height: 4.5em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: max-height 0.3s ease;
-}
-
-.testimonial p.expanded {
-    max-height: none;
-}
-
-.read-more {
-    color: #007bff;
-    cursor: pointer;
-    margin-top: 1rem;
-    display: inline-block;
-    font-size: 0.875rem;
-}
-
-.read-more:hover {
-    text-decoration: underline;
-}
-
-@media (max-width: 992px) {
-    .col {
-        flex: 1 1 calc(50% - 2rem);
-    }
-}
-
-@media (max-width: 768px) {
-    .col {
-        flex: 1 1 calc(100% - 2rem);
-    }
-}
-
 form {
     display: flex;
     flex-direction: column;
@@ -133,6 +48,125 @@ form button {
 
 form button:hover {
     background: darkgreen;
+}
+
+.testimonial-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.col {
+    position: relative;
+}
+
+.testimonial {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s ease forwards;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+.testimonial:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.testimonial img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #6ab04c;
+    padding: 2px;
+}
+
+.name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2d3436;
+    margin-bottom: 0.25rem;
+    text-transform: none;
+}
+
+.testimonial span {
+    font-size: 0.85rem;
+    color: #636e72;
+    font-weight: 500;
+    display: block;
+}
+
+.testimonial p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.testimonial p.expanded {
+    -webkit-line-clamp: unset;
+}
+
+.read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #6ab04c;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.read-more:hover {
+    color: #4a8f3c;
+    text-decoration: none;
+}
+
+.read-more svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+}
+
+@media (max-width: 992px) {
+    .testimonial-row {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .testimonial {
+        padding: 1.25rem;
+    }
+
+    .testimonial img {
+        width: 48px;
+        height: 48px;
+    }
 }
 
 @keyframes fadeInUp {

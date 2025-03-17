@@ -104,27 +104,34 @@ const Testimonial = () => {
           />
           <button type="submit" style={{ marginBottom: "20px" }}>Submit</button>
         </form>
-
         <div className="row testimonial-row">
           {testimonials.map((testimonial, index) => (
             <div className="col" key={index} style={{ '--i': index }}>
               <div className="testimonial">
-                <b><span>{testimonial.addedAt}</span></b>
-                <img
-                  src="https://img.freepik.com/premium-vector/man-profile-cartoon_18591-58482.jpg"
-                  alt="Profile"
-                />
-                <div className="name">{testimonial.name}</div>
+                <div className="card-header">
+                  <img
+                    src="https://img.freepik.com/premium-vector/man-profile-cartoon_18591-58482.jpg"
+                    alt="Profile"
+                    className="user-avatar"
+                  />
+                  <div className="user-meta">
+                    <div className="name">{testimonial.name}</div>
+                    <time className="date">{testimonial.addedAt}</time>
+                  </div>
+                </div>
                 <p className={expanded[index] ? "expanded" : ""}>
                   {testimonial.text}
                 </p>
                 {testimonial.text.length > 100 && (
-                  <div
+                  <button
                     className="read-more"
                     onClick={() => toggleReadMore(index)}
                   >
-                    {expanded[index] ? "Read Less..." : "Read More..."}
-                  </div>
+                    {expanded[index] ? "Show Less" : "Read More"}
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                      <path fill="currentColor" d={expanded[index] ? "M7 14l5-5 5 5z" : "M7 10l5 5 5-5z"} />
+                    </svg>
+                  </button>
                 )}
               </div>
             </div>
