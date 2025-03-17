@@ -1,9 +1,63 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import {
+    FaCheckCircle as CheckCircleIcon,
+    FaTimesCircle as CancelIcon,
+    FaClock as PendingIcon,
+    FaCalendarAlt as CalendarIcon,
+    FaCar as BrandIcon,
+    FaExclamationTriangle as AlertIcon
+} from 'react-icons/fa';
 import Modal from 'react-modal';
 import '../styles/userprofile.css';
 
 Modal.setAppElement('#root');
+
+const CarCard = ({ item, status }) => (
+    <div className={`vehicle-card ${status}`}>
+        <div className="card-media">
+            <img
+                src={`data:image/jpeg;base64,${item.image}`}
+                alt={item.name}
+                className="vehicle-image"
+            />
+            <div className="card-status">
+                {status === 'approved' && <CheckCircleIcon />}
+                {status === 'rejected' && <CancelIcon />}
+                {status === 'pending' && <PendingIcon />}
+                <span>{status.toUpperCase()}</span>
+            </div>
+        </div>
+
+        <div className="card-content">
+            <div className="vehicle-header">
+                <h4 className="vehicle-title">{item.name}</h4>
+                <span className="vehicle-price">₹{item.price}</span>
+            </div>
+
+            <div className="vehicle-meta">
+                <div className="meta-item">
+                    <CalendarIcon />
+                    <span>{item.year}</span>
+                </div>
+                <div className="meta-item">
+                    <BrandIcon />
+                    <span>{item.company}</span>
+                </div>
+            </div>
+
+            {status === 'rejected' && (
+                <div className="rejection-notice">
+                    <div className="notice-header">
+                        <AlertIcon />
+                        <h5>Rejection Reason</h5>
+                    </div>
+                    <p>{item.reason}</p>
+                </div>
+            )}
+        </div>
+    </div>
+);
 
 const UserProfile = () => {
     const [user, setUser] = useState(null);
@@ -19,15 +73,16 @@ const UserProfile = () => {
     const logout = () => {
         localStorage.clear();
         navigate('/login');
-    }
+    };
 
     useEffect(() => {
         const userData = localStorage.getItem('user');
         if (userData) {
-            setUser(JSON.parse(userData));
-            fetchUserCars(JSON.parse(userData)._id);
-            fetchUserRejectedCars(JSON.parse(userData)._id);
-            fetchUserPendingCars(JSON.parse(userData)._id);
+            const parsedUser = JSON.parse(userData);
+            setUser(parsedUser);
+            fetchUserCars(parsedUser._id);
+            fetchUserRejectedCars(parsedUser._id);
+            fetchUserPendingCars(parsedUser._id);
         } else {
             setError('User data not found');
         }
@@ -111,112 +166,40 @@ const UserProfile = () => {
                         <div style={{ marginBottom: "20px" }}>
                             <h3>Car Listings</h3>
                         </div>
+
                         {(approvedCars.length || rejectedCars.length || pendingCars.length) > 0 ? (
-                            <div className="car-list">
-                                {approvedCars.map((item) => (
-                                    <div className="listing" key={item._id}>
-                                        <img className="car-image" src={`data:image/jpeg;base64,${item.image}`} alt="Car" />
-                                        <div className="listing-details">
-                                            <h5>{item.name}</h5>
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <td><p>Price</p></td>
-                                                        <td>:</td>
-                                                        <td> ₹{item.price}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><p>Year</p></td>
-                                                        <td>:</td>
-                                                        <td>{item.year}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><p>Company</p></td>
-                                                        <td>:</td>
-                                                        <td>{item.company}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><p>Status</p></td>
-                                                        <td>:</td>
-                                                        <td><span style={{ color: "#66FF00" }}><b>Approved</b></span></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                            <div className="car-dashboard">
+                                <div className="status-container">
+                                    {approvedCars.length > 0 && (
+                                        <div className="card-container">
+                                            {approvedCars.map((item) => (
+                                                <CarCard key={item._id} item={item} status="approved" />
+                                            ))}
                                         </div>
-                                    </div>
-                                ))}
-                                {rejectedCars.map((item) => (
-                                    <div className="listing" key={item._id}>
-                                        <img className="car-image" style={{ height: "250px" }} src={`data:image/jpeg;base64,${item.image}`} alt="Car" />
-                                        <div className="listing-details">
-                                            <h5>{item.name}</h5>
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <td><p>Price</p></td>
-                                                        <td>:</td>
-                                                        <td>₹{item.price}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><p>Year</p></td>
-                                                        <td>:</td>
-                                                        <td>{item.year}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><p>Company</p></td>
-                                                        <td>:</td>
-                                                        <td>{item.company}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><p>Status</p></td>
-                                                        <td>:</td>
-                                                        <td><span style={{ color: "red" }}><b>Rejected</b></span></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><p>Reason</p></td>
-                                                        <td>:</td>
-                                                        <td>{item.reason}</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                    )}
+
+                                    {pendingCars.length > 0 && (
+                                        <div className="card-container">
+                                            {pendingCars.map((item) => (
+                                                <CarCard key={item._id} item={item} status="pending" />
+                                            ))}
                                         </div>
-                                    </div>
-                                ))}
-                                {pendingCars.map((item) => (
-                                    <div className="listing" key={item._id}>
-                                        <img className="car-image" src={`data:image/jpeg;base64,${item.image}`} alt="Car" />
-                                        <div className="listing-details">
-                                            <h5>{item.name}</h5>
-                                            <table>
-                                                <tbody>
-                                                    <tr>
-                                                        <td><p>Price</p></td>
-                                                        <td>:</td>
-                                                        <td>₹ {item.price}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><p>Year</p></td>
-                                                        <td>:</td>
-                                                        <td>{item.year}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><p>Company</p></td>
-                                                        <td>:</td>
-                                                        <td>{item.company}</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><p>Status</p></td>
-                                                        <td>:</td>
-                                                        <td><span style={{ color: "blue" }}><b>Pending</b></span></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                    )}
+
+                                    {rejectedCars.length > 0 && (
+                                        <div className="card-container">
+                                            {rejectedCars.map((item) => (
+                                                <CarCard key={item._id} item={item} status="rejected" />
+                                            ))}
                                         </div>
-                                    </div>
-                                ))}
+                                    )}
+                                </div>
                             </div>
                         ) : (
-                            <p>No cars added yet.</p>
+                            <div className="empty-state">
+                                <h3 className="empty-title">No Vehicles Listed</h3>
+                                <p className="empty-message">Get started by adding your first vehicle!</p>
+                            </div>
                         )}
                         <div className="profile-actions">
                             <button className="edit-button" onClick={() => setModalIsOpen(true)}>Logout</button>
