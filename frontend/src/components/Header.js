@@ -20,7 +20,7 @@ const Header = () => {
                         </button>
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="nav-links navbar-nav ms-auto">
-                                {auth.isAdmin && (
+                                {auth.isAdmin ? (
                                     <>
                                         <li className="nav-item" style={{ marginTop: "5px" }}>
                                             <Link to="/admindashboard" className="nav-link">Dashboard</Link>
@@ -29,16 +29,19 @@ const Header = () => {
                                             <Link to="/pendingproducts" className="nav-link">Pending Car Requests</Link>
                                         </li>
                                     </>
+                                ) : (
+                                    <>
+                                        <li className="nav-item" style={{ marginTop: "5px" }}>
+                                            <Link to="/" className="nav-link">Buy Car</Link>
+                                        </li>
+                                        <li className="nav-item" style={{ marginTop: "5px" }}>
+                                            <Link to="/add" className="nav-link">Add Car</Link>
+                                        </li>
+                                        <li className="nav-item" style={{ marginTop: "5px" }}>
+                                            <Link to="/testimonials" className="nav-link">Testimonials</Link>
+                                        </li>
+                                    </>
                                 )}
-                                <li className="nav-item" style={{ marginTop: "5px" }}>
-                                    <Link to="/" className="nav-link">Buy Car</Link>
-                                </li>
-                                <li className="nav-item" style={{ marginTop: "5px" }}>
-                                    <Link to="/add" className="nav-link">Add Car</Link>
-                                </li>
-                                <li className="nav-item" style={{ marginTop: "5px" }}>
-                                    <Link to="/testimonials" className="nav-link">Testimonials</Link>
-                                </li>
                                 <li className="nav-item">
                                     <Link to="/profile" className="nav-link">
                                         <div className="header-profile">
