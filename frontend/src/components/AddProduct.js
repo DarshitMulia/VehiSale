@@ -176,7 +176,6 @@ const AddProduct = () => {
                             {errors.image && <p className="error-message" style={{ fontSize: "12px" }}>{errors.image}</p>}
                         </div>
                     </div>
-
                     <div className='row mb-3'>
                         <div className="col me-4">
                             <p><b>Model</b></p>
@@ -188,7 +187,6 @@ const AddProduct = () => {
                                 className="add-product-input" />
                             {errors.name && <p className="error-message" style={{ fontSize: "12px" }}>{errors.name}</p>}
                         </div>
-
                         <div className="col me-4">
                             <p><b>Year</b></p>
                             <input
@@ -201,7 +199,6 @@ const AddProduct = () => {
                                 max="2024" />
                             {errors.year && <p className="error-message" style={{ fontSize: "12px" }}>{errors.year}</p>}
                         </div>
-
                         <div className="col me-4">
                             <p><b>Price</b></p>
                             <input
@@ -212,7 +209,6 @@ const AddProduct = () => {
                                 className="add-product-input" />
                             {errors.price && <p className="error-message" style={{ fontSize: "12px" }}>{errors.price}</p>}
                         </div>
-
                         <div className="col">
                             <p><b>Kms Driven</b></p>
                             <input
@@ -225,28 +221,9 @@ const AddProduct = () => {
                         </div>
                     </div>
 
+
                     <div className='row mb-3'>
                         <div className="col me-4">
-                            <p><b>Category</b></p>
-                            <select
-                                value={category}
-                                onChange={(e) => setCategory(e.target.value)}
-                                className="add-product-input"
-                            >
-                                <option value="">Select Category</option>
-                                <option value="Hatchback">Hatchback</option>
-                                <option value="Mini Hatchback">Mini Hatchback</option>
-                                <option value="Sedan">Sedan</option>
-                                <option value="SUV">SUV</option>
-                                <option value="Crossover">Crossover</option>
-                                <option value="Coupe">Coupe</option>
-                                <option value="Convertible">Convertible</option>
-                                <option value="Wagon">Wagon</option>
-                            </select>
-                            {errors.category && <p className="error-message" style={{ fontSize: "12px" }}>{errors.category}</p>}
-                        </div>
-
-                        <div className="col">
                             <p><b>Company</b></p>
                             <select
                                 value={company}
@@ -304,7 +281,27 @@ const AddProduct = () => {
                             </select>
                             {errors.company && <p className="error-message" style={{ fontSize: "12px" }}>{errors.company}</p>}
                         </div>
+                        <div className="col">
+                            <p><b>Category</b></p>
+                            <select
+                                value={category}
+                                onChange={(e) => setCategory(e.target.value)}
+                                className="add-product-input"
+                            >
+                                <option value="">Select Category</option>
+                                <option value="Hatchback">Hatchback</option>
+                                <option value="Mini Hatchback">Mini Hatchback</option>
+                                <option value="Sedan">Sedan</option>
+                                <option value="SUV">SUV</option>
+                                <option value="Crossover">Crossover</option>
+                                <option value="Coupe">Coupe</option>
+                                <option value="Convertible">Convertible</option>
+                                <option value="Wagon">Wagon</option>
+                            </select>
+                            {errors.category && <p className="error-message" style={{ fontSize: "12px" }}>{errors.category}</p>}
+                        </div>
                     </div>
+
 
                     <div className='row mb-3'>
                         <div className="col me-4">
@@ -317,7 +314,6 @@ const AddProduct = () => {
                                 className="add-product-input" />
                             {errors.mileage && <p className="error-message" style={{ fontSize: "12px" }}>{errors.mileage}</p>}
                         </div>
-
                         <div className="col">
                             <p><b>Color</b></p>
                             <select
@@ -344,6 +340,7 @@ const AddProduct = () => {
                         </div>
                     </div>
 
+
                     <div className='row mb-3'>
                         <div className="col me-4">
                             <p><b>Fuel Type</b></p>
@@ -361,7 +358,6 @@ const AddProduct = () => {
                             </select>
                             {errors.fuelType && <p className="error-message" style={{ fontSize: "12px" }}>{errors.fuelType}</p>}
                         </div>
-
                         <div className="col">
                             <p><b>Transmission</b></p>
                             <div className="radio-buttons">
@@ -391,16 +387,9 @@ const AddProduct = () => {
                             {errors.transmission && <p className="error-message" style={{ fontSize: "12px" }}>{errors.transmission}</p>}
                         </div>
                     </div>
-                    <div className="row">
-                        <div className='col-3'>
-                            <button className="add-product-button" style={{ width: "100%", backgroundColor:"blue" }}>Predict Price</button>
-                        </div>
-                        <div className='col-3'>
-                            <h4 style={{display:"flex", justifyContent:"center", alignItems:"center"}}>3,90,000</h4>
-                        </div>
-                        <div className='col-6'>
-                            <button onClick={addProduct} className="add-product-button" style={{ width: "100%" }}>Add Car</button>
-                        </div>
+                    <div className="button-container">
+                        <button onClick={() => navigate(-1)} className="back-button">Back</button>
+                        <button onClick={addProduct} className="add-product-button">Add Car</button>
                     </div>
                 </div>
             </div>
