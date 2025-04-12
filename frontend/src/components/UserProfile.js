@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
     FaCheckCircle as CheckCircleIcon,
     FaTimesCircle as CancelIcon,
@@ -8,10 +7,7 @@ import {
     FaCar as BrandIcon,
     FaExclamationTriangle as AlertIcon
 } from 'react-icons/fa';
-import Modal from 'react-modal';
 import '../styles/userprofile.css';
-
-Modal.setAppElement('#root');
 
 const CarCard = ({ item, status }) => (
     <div className={`vehicle-card ${status}`}>
@@ -66,14 +62,6 @@ const UserProfile = () => {
     const [approvedCars, setApprovedCars] = useState([]);
     const [rejectedCars, setRejectedCars] = useState([]);
     const [pendingCars, setPendingCars] = useState([]);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-
-    const navigate = useNavigate();
-
-    const logout = () => {
-        localStorage.clear();
-        navigate('/login');
-    };
 
     useEffect(() => {
         const userData = localStorage.getItem('user');
@@ -201,29 +189,6 @@ const UserProfile = () => {
                                 <p className="empty-message">Get started by adding your first vehicle!</p>
                             </div>
                         )}
-                        <div className="profile-actions">
-                            <button className="edit-button" onClick={() => setModalIsOpen(true)}>Logout</button>
-                        </div>
-
-                        <Modal
-                            isOpen={modalIsOpen}
-                            onRequestClose={() => setModalIsOpen(false)}
-                            className={{
-                                base: 'logout-modal',
-                                afterOpen: 'logout-modal-open',
-                                beforeClose: 'logout-modal-close'
-                            }}
-                            closeTimeoutMS={300}
-                        >
-                            <div className="modal-content">
-                                <h2 className="modal-header">Confirm Logout</h2>
-                                <p>Are you sure you want to log out?</p>
-                                <div className="modal-buttons">
-                                    <button className="modal-logout-cancel-button" onClick={() => setModalIsOpen(false)}>Cancel</button>
-                                    <button className="modal-logout-submit-button" onClick={logout}>Logout</button>
-                                </div>
-                            </div>
-                        </Modal>
                     </>
                 )}
             </div>
