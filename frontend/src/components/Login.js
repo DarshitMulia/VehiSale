@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/signuplogin.css';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -105,10 +106,10 @@ const Login = () => {
                         <div className="signuplogin-form">
                             <h1>Login</h1>
                             <div className="form-group">
-                                <input 
-                                    type="email" 
-                                    placeholder="Enter Email" 
-                                    value={email} 
+                                <input
+                                    type="email"
+                                    placeholder="Enter Email"
+                                    value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     onKeyDown={handleKeyDown} />
                                 {error.email && <p style={{ color: 'red', fontSize: '12px' }}>{error.email}</p>}
@@ -126,7 +127,7 @@ const Login = () => {
                                         className='password-toggle'
                                         onClick={() => setShowPassword(!showPassword)}
                                     >
-                                        {showPassword ? '👁️' : '🙈'}
+                                        {showPassword ? <FaEye /> : <FaEyeSlash />}
                                     </span>
                                 </div>
                                 {error.password && <p style={{ color: 'red', fontSize: '12px' }}>{error.password}</p>}
@@ -137,7 +138,7 @@ const Login = () => {
                                 </button>
                             </center>
                             <div className='signuplogin-link'>
-                                <p style={{marginRight:"10px"}}>New User?</p>
+                                <p style={{ marginRight: "10px" }}>New User?</p>
                                 <Link to="/signup">SignUp</Link>
                             </div>
                         </div>

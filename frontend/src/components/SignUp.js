@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/signuplogin.css';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const SignUp = () => {
     const navigate = useNavigate();
@@ -129,7 +130,7 @@ const SignUp = () => {
                                         className='password-toggle'
                                         onClick={() => setShowPassword(!showPassword)}
                                     >
-                                        {showPassword ? '👁️' : '🙈'}
+                                        {showPassword ? <FaEye /> : <FaEyeSlash />}
                                     </span>
                                 </div>
                                 {errors.password && <p style={{ color: 'red', fontSize: '12px' }}>{errors.password}</p>}
