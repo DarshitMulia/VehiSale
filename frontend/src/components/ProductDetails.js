@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import '../styles/productdetails.css';
 
 const ProductDetails = () => {
@@ -7,6 +7,7 @@ const ProductDetails = () => {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchProductDetails = async () => {
@@ -101,7 +102,10 @@ const ProductDetails = () => {
                                 </div>
                             </div>
                             <p className="product-price">₹{product.price}</p>
-                            <button className="buy-now-button">Buy Now</button>
+                            <div className="button-container">
+                                <button onClick={() => navigate(-1)} className="back-button">Back</button>
+                                <button className="buy-now-button">Buy Now</button>
+                            </div>
                         </div>
                     </div>
                 </div>
