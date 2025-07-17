@@ -80,7 +80,7 @@ const ProductDetails = () => {
                                             <tr>
                                                 <th>KMsDriven</th>
                                                 <td>:</td>
-                                                <td>{product.kmsDriven} km/l</td>
+                                                <td>{product.kmsDriven} km</td>
                                             </tr>
                                             <tr>
                                                 <th>Color</th>
