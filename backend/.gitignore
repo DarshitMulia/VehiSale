@@ -1,2 +1,2 @@
-/node_modules
-/AI/venv
+node_modules/
+.env
