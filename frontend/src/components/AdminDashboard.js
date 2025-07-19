@@ -53,7 +53,7 @@ const AdminDashboard = () => {
     useEffect(() => {
         const fetchDashboardData = async () => {
             try {
-                let response = await fetch('http://localhost:5000/admindashboard', {
+                let response = await fetch('http://localhost:5000/api/admin/dashboard', {
                     headers: {
                         authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
                     }

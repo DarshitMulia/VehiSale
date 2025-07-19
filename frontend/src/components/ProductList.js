@@ -44,7 +44,7 @@ const ProductList = () => {
                 }
             }
             console.log('Query Params:', queryParams);
-            let result = await fetch(`http://localhost:5000/products?${queryParams}`, {
+            let result = await fetch(`http://localhost:5000/api/products?${queryParams}`, {
                 headers: {
                     authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
                 }
@@ -70,7 +70,7 @@ const ProductList = () => {
         try {
             let key = event.target.value.trim();
             if (key) {
-                let result = await fetch(`http://localhost:5000/search/${key}`, {
+                let result = await fetch(`http://localhost:5000/api/products/search/${key}`, {
                     headers: {
                         authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
                     }

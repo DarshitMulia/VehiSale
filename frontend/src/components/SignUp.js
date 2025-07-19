@@ -52,7 +52,7 @@ const SignUp = () => {
     const collectData = async () => {
         try {
             if (validateForm()) {
-                const response = await fetch('http://localhost:5000/register', {
+                const response = await fetch('http://localhost:5000/api/auth/register', {
                     method: 'POST',
                     body: JSON.stringify({ name, email, password, isAdmin: false }),
                     headers: {

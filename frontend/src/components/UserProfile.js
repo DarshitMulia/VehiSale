@@ -79,7 +79,7 @@ const UserProfile = () => {
 
     const fetchUserCars = async () => {
         try {
-            const response = await fetch('http://localhost:5000/user-cars', {
+            const response = await fetch('http://localhost:5000/api/products/user/approved', {
                 headers: {
                     'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
                 }
@@ -97,7 +97,7 @@ const UserProfile = () => {
 
     const fetchUserRejectedCars = async () => {
         try {
-            const response = await fetch('http://localhost:5000/user-rejected-cars', {
+            const response = await fetch('http://localhost:5000/api/products/user/rejected', {
                 headers: {
                     'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
                 }
@@ -115,7 +115,7 @@ const UserProfile = () => {
 
     const fetchUserPendingCars = async () => {
         try {
-            const response = await fetch('http://localhost:5000/user-pending-cars', {
+            const response = await fetch('http://localhost:5000/api/products/user/pending', {
                 headers: {
                     'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
                 }

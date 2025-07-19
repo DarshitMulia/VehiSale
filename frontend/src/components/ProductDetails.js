@@ -12,7 +12,7 @@ const ProductDetails = () => {
     useEffect(() => {
         const fetchProductDetails = async () => {
             try {
-                let result = await fetch(`http://localhost:5000/products/${id}`, {
+                let result = await fetch(`http://localhost:5000/api/products/${id}`, {
                     headers: {
                         authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`
                     }

@@ -119,7 +119,7 @@ const AddProduct = () => {
             formData.append('transmission', transmission);
             formData.append('fuelType', fuelType);
 
-            const response = await fetch('http://localhost:5000/add-product', {
+            const response = await fetch('http://localhost:5000//api/products/add', {
                 method: 'POST',
                 headers: {
                     authorization: `bearer ${JSON.parse(localStorage.getItem('token'))}`

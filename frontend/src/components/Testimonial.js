@@ -3,7 +3,7 @@ import '../styles/testimonial.css';
 
 const fetchTestimonials = async () => {
   try {
-    const response = await fetch('http://localhost:5000/testimonials', {
+    const response = await fetch('http://localhost:5000/api/testimonials', {
       headers: {
         'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
       }
@@ -55,7 +55,7 @@ const Testimonial = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/testimonials', {
+      const response = await fetch('http://localhost:5000/api/testimonials', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

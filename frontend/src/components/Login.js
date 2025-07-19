@@ -52,7 +52,7 @@ const Login = () => {
 
         if (email.trim() && password.trim() && !error.email && !error.password) {
             try {
-                let result = await fetch('http://localhost:5000/login', {
+                let result = await fetch('http://localhost:5000/api/auth/login', {
                     method: 'POST',
                     body: JSON.stringify({ email, password }),
                     headers: {

@@ -19,7 +19,7 @@ const PendingProducts = () => {
 
     const getProducts = async () => {
         try {
-            const response = await fetch('http://localhost:5000/products', {
+            const response = await fetch('http://localhost:5000/api/products/', {
                 headers: {
                     Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
                 }
@@ -37,7 +37,7 @@ const PendingProducts = () => {
 
     const getPendingProducts = async () => {
         try {
-            const response = await fetch('http://localhost:5000/pending-products', {
+            const response = await fetch('http://localhost:5000/api/products/pending', {
                 headers: {
                     Authorization: `Bearer ${JSON.parse(localStorage.getItem('token'))}`
                 }
@@ -62,7 +62,7 @@ const PendingProducts = () => {
     const approveProduct = async () => {
         try {
             const token = JSON.parse(localStorage.getItem('token'));
-            const response = await fetch(`http://localhost:5000/pending-products/approve-reject/${selectedProductId}`, {
+            const response = await fetch(`http://localhost:5000/api/products/pending/approve-reject/${selectedProductId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ const PendingProducts = () => {
     const rejectProduct = async () => {
         try {
             const token = JSON.parse(localStorage.getItem('token'));
-            const response = await fetch(`http://localhost:5000/pending-products/approve-reject/${selectedProductId}`, {
+            const response = await fetch(`http://localhost:5000/api/products/pending/approve-reject/${selectedProductId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
